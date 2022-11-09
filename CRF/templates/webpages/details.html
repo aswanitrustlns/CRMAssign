@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" lang="ar">
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      
+      <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
+      <style>
+        table td .dropdown-menu.show{
+                right: 0px;
+        left: auto;
+        transform: none;
+        display: flex;
+        }
+    </style>
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <div class="main-content ">
+
+            <div class="page-content " id="sales">
+                <div class="container-fluid">
+                              <!-- start page title -->
+                              <div class="row">
+                                
+                                  <div class="col-12">
+                                    <a class="btn bg-soft-secondarycolor btn-sm text-white me-2 mb-2" style="cursor:pointer" onclick="history.back()"><i class="fa fa-chevron-left me-2"></i>Back</a>
+                                      <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                          <h4 class="mb-sm-0 fs-23 almarenamonolight-type">CRF case details </h4><!--font-size-18-->
+    
+                                          <!--<div class="page-title-right">
+                                              <ol class="breadcrumb m-0">
+                                                  <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                                  <li class="breadcrumb-item active">CRF case details </li>
+                                              </ol>
+                                          </div>-->
+    
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- end page title -->       
+                              <div class=" mb-4">
+                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to see the list of all CRF case on your account</p>
+    
+                                <hr class="my-4">
+                                </div>
+                                  
+                               <!--Data Table-->
+                                <div class="row">
+    
+                                    <div class="col-xl-8 ">
+    
+                                        <div class="card border-0 card-h-100">
+    
+                                            <div class="card-body p-0 ">
+    
+                                                     <!--Search-->
+                                                <div class="row align-items-end">
+    
+                                                    <div class="col-xxl-12 col-md-12  mb-2 ">
+    
+                                                        <div class="row ">
+    
+                                                            <div class="col-md-6 col-xxl-5"> 
+    
+                                                                <!-- <div class="mb-2">
+    
+                                                                    <input type="text" class="form-control  " placeholder="Search" id="myinputsearch1" >
+                                                                </div> -->
+                                                            
+    
+                                                            </div>
+                                                            <div class="col-md-6 col-xxl-5 flex-shrink-0">
+                                                                <div class="mb-2 ">
+                                                                    <div id="datatable-buttons_wrapper1">
+                        
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="card">
+        
+                                                        <div class="card-body">
+        
+                                                            <div class="table-responsive "   data-simplebar="init" >
+            
+                                                    
+                                                                <table  class="table dt-responsive  nowrap  w-100 change" id="datatable">
+                                                                    <thead class="color-color1">
+                                                                        <tr  class=" gilory-medium-type fs-17">
+                                                                            
+                                                                            <!-- <th >Case DetailId</th> -->
+                                                                            <!-- <th  >Case Code</th> -->
+                                                                            <th  >Topic</th>
+                                                                        
+                                                                            
+                                                                            <th>Case Types</th>
+                                                                            <!-- <th>Name</th> -->
+                                                                            <th>Priority</th>
+                                                                            <th>Modified</th>
+                                                                            <th>Completion Date</th>
+                                                                            <th>Exp CompletionDate</th>
+                                                                            <th>Status</th>
+                                                                            <th></th>
+                                                                            <!-- <th>Resolve</th>
+                                                                            
+                                                                            <th class="text-end ">Re Open</th> -->
+                                                                        
+                                                                            
+                                                                        </tr>
+                                                                    </thead>
+                    
+                    
+                                                                    <tbody class="text-white gilory-regular-type fs-16">
+                                                                        {%for detail in details%}
+                                                                        <tr>
+                                                                            <!-- <td>{{detail.casedetailid}}</td>  -->
+                                                                            <td>{{detail.topic}}</td>   
+                                                                            <td>{{detail.casetype}}</td>
+                                                                            <td>{{detail.priority}}</td>
+                                                                            <td>{{detail.modified|date:"Y-m-d"}}</td>
+                                                                            <td>{{detail.completiondate|date:"Y-m-d"}}</td>
+                                                                            <td>{{detail.expcompletion|date:"Y-m-d"}}</td>
+                                                                            <td>{{detail.status}}</td>
+                                                                            <td>
+                                                                                <div class='dropdown align-self-start'>
+                                                                                <a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                                                                    <i class='bx bx-dots-vertical-rounded'></i>
+                                                                                </a>
+                                                                                    <div class='dropdown-menu' style='cursor:pointer'>
+                                                                                        <a class='dropdown-item' onclick="loadMoreDeatails({{case.caseid}})">Edit Status</a>
+                                                                                        <a class='dropdown-item'>
+                                                                                        Upload Doc</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <!-- <td>Noura Mikati</td> -->
+                                                                            <!-- <td>nouramikati@trusttech.in</td>
+                                                                            <td><button class="btn  btn-sm  color-green fs-15" style="background-color:
+                                                                                rgba(0, 165, 79, 0.15) ;">Approved</button></td>
+                                                                            <td><button class="btn  btn-sm   fs-15" style="background-color: rgba(25, 118, 210, 0.11) ;color:rgba(25, 118, 210, 1) ;">Resolve </button></td>
+                                                                            
+                                                                            <td class="text-end "><button class="btn  btn-sm   fs-15" style="background-color: rgba(255, 124, 72, 0.15) ;color:rgba(255, 124, 72, 1) ;">Re Open</button></td>
+                                                                 -->
+                                                                    
+                                                                        
+                                                                        </tr>
+                                                                        {%endfor%}
+                                                                    </tbody>
+                                                                
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                </div> 
+                                                <hr class="my-4">
+                                                <div class="card">
+        
+                                                    <div class="card-body">
+    
+                                                        <div class="table-responsive "   data-simplebar="init" >
+        
+                                                
+                                                            <table  class="table dt-responsive  nowrap  w-100 change" id="datatable">
+                                                                <thead class="color-color1">
+                                                                    <tr  class=" gilorymedium-type fs-17">
+                                                                        <!-- <th  class="ps-0"> View</th> -->
+                                                                        <th >Document Name</th>
+                                                                        <th  >Document Type</th>
+                                                                        <th  >Uploaded Date</th>
+                                                                    
+                                                                        <!-- <th>Priority</th>
+                                                                        <th>Modified</th>
+                                                                        <th>Case Types</th>
+                                                                        <th>Name</th>
+                                                                        <th>Status</th>
+                                                                        <th>Resolve</th>
+                                                                        
+                                                                        <th class="text-end ">Re Open</th> -->
+                                                                    
+                                                                        
+                                                                    </tr>
+                                                                </thead>
+                
+                
+                                                                <tbody class="text-white giloryregular-type fs-16">
+                                                                    
+                                                                    {%for doc in docs%}
+                                                                    <tr>
+                                                                
+                                                                        <!-- <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td> -->
+                                                                        <td>{{doc.documentname}}</td>
+                                                                        <td>{{doc.doctype}}</td>   
+                                                                        <td>{{doc.uploadeddate|date:"Y-m-d"}}</td>
+                                                                        <td><a class="color-green text-decoration-underline" style="cursor: pointer;" onclick="viewDocs({{doc.id}})">View</a></td>
+                                                                    </tr>
+                                                                    {%endfor%}
+                                                                        <!-- <td>410000</td>
+                                                                        <td>Noura Mikati</td>
+                                                                        <td>nouramikati@trusttech.in</td>
+                                                                        <td><button class="btn  btn-sm  text-danger fs-15" style="background-color:
+                                                                            rgba(255, 3, 3, 0.15) ;">Cancelled</button></td>
+                                                                        <td><button class="btn  btn-sm   fs-15" style="background-color: rgba(25, 118, 210, 0.11) ;color:rgba(25, 118, 210, 1) ;">Resolve </button></td>
+                                                                        
+                                                                        <td class="text-end "><button class="btn  btn-sm   fs-15" style="background-color: rgba(255, 124, 72, 0.15) ;color:rgba(255, 124, 72, 1) ;">Re Open</button></td>
+                                                            
+                                                                 -->
+                                                                    
+                                                                   
+                                                            
+                                                                
+                                                                </tbody>
+                                                            
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                            </div> 
+                                            </div>
+    
+    
+                                        </div>
+                                      
+                                    </div>
+                                    <div class="col-xl-4">
+    
+                                        <div class="card card-h-100 border-0">
+    
+                                            <div class="card-body p-0  ">
+                                                <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
+                                                    <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Activities
+                                                    </h5>
+        
+                                                </div>
+    
+                                                <div class="card  border-0" style="background-color: #1B1C2E;">
+                                                    <div class="card-body">
+    
+    
+                                                        <div class=""   id="journal-block"  data-simplebar=" " style="max-height:50vh ;">
+                                                            <ul class="list-unstyled activity-wid activity-wid-manage-tickets " >
+                                                            
+                                                            
+                        
+                                                               {%for activity in activities%}
+                                                                {%for results in activity%}
+                                                                <li class="activity-list activity-border">
+                                                                    <div class="activity-icon avatar-sm ms-2">
+                                                                        <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
+                                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="timeline-list-item">
+                                                                        <div class="d-flex">
+                                                                            <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
+                                                                                <p class="font-size-14 mb-1 color-color1">{{results.modified|date:"Y-m-d"}}</p>
+                                                                                <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
+                                                                                    <!-- <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="{% static 'images/users/user.png' %}" data-holder-rendered="true">  -->
+                                                                                    <div class="">
+                                                                                        <!-- <p class=" color-color1  mb-0 ">Admin</p> -->
+                                                                                        <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">{{results.description}}</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                            <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                            </svg>
+                                                                                            </p>
+<!--                                                                                         
+                                                                                        <p class=" color-color1  mb-0">12:34 Pm by admin</p>
+                                                                                        <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p> -->
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div> 
+                                                                </li>
+                                                                {%endfor%}
+                
+                                                                
+                                                             {%endfor%}  
+    
+                                                                
+                                                               
+                                                                
+                                                            
+                                                            </ul>
+                                                        </div>
+                                                        <!-- <div class="px-3"  >
+                                                            
+                                                        
+                                                            <div class=" mt-3">
+                                                                <form action="" class="row needs-validation ">
+    
+    
+    
+    
+                                                                    <div class="col-md-12 mb-2">
+    
+                                                                        <textarea name="" id="" cols="30" rows="3" class="form-control" style="background-color: transparent !important;"></textarea>
+    
+                                                                        <button  class="btn btn-sm btn-primary me-2   position-absolute" type="submit" style="right: 15px; bottom: 10px;" >Send</button>
+                                                                    </div>
+                                                                    <div class="col-md-12  ">
+    
+                                                                        <div class="row">
+    
+                                                                            <div class="col-md-3 mb-2">
+                                                                                <label class="form-label mb-1" for="Call">Call</label>
+                                                                                <select class=" form-select  py-1" id="Call" style="background-color: transparent !important;">
+                                                                                    <option value="">
+                                                                                        1
+                                                                                    </option>
+                                                                                <select>
+                                                                            </div>
+                                                                            <div class="col-md-3 mb-1">
+                                                                                <label class="form-label mb-1" for="Interest">Interest</label>
+    
+                                                                                <select class=" form-select  py-1" id="Interest" style="background-color: var(--bs-card-bg)  !important;">
+                                                                                    <option value="">
+                                                                                        1
+                                                                                    </option>
+                                                                                    <option value="">
+                                                                                        1
+                                                                                    </option>
+                                                                                <select>
+                                                                            </div>
+                                                                            <div class="col-md-3 mb-1">
+                                                                                <label class="form-label mb-1" for="Exp">Exp</label>
+    
+                                                                                <select class=" form-select  py-1" id="Exp" style="background-color: transparent  !important;">
+                                                                                    <option value="">
+                                                                                        1
+                                                                                    </option>
+                                                                                <select>
+                                                                            </div>
+                                                                            <div class="col-md-3 mb-1">
+                                                                                <label class="form-label mb-1" for="temp">None</label>
+    
+                                                                                <select class=" form-select py-1" style="background-color: transparent !important ;">
+                                                                                    <option value="">
+                                                                                        1
+                                                                                    </option>
+                                                                                <select>
+                                                                            </div>
+                                                                        </div>
+    
+                                                                    </div>
+                                                                </form>
+                                                            
+                                                            
+    
+                                                            
+                                                            
+                                                            </div>
+                                                        
+                                                            
+    
+                                                        </div>
+     -->
+                                                        
+                                                        
+    
+                                                    </div>
+    
+                                                    
+    
+                                                </div>
+    
+    
+                                            </div>
+                                        </div>
+                                    </div>
+                               
+                                </div>   
+                                
+                                <!--Model-->
+                                       <!---Modal Upload document-->
+                                       <div class="modal fade  bs-example-modal-show" tabindex="-1" role="dialog" aria-hidden="true" id="image-modal">
+                                                            
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content ">
+    
+    
+    
+                                                <div class="modal-body ">
+    
+    
+                                                    <div class="  px-0  ">
+    
+                                                        <div class="modal-header border-0 px-0">
+                                                            <h5 class="modal-title fs-21 ">Document</h5>
+    
+                                                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    </svg>
+    
+                                                                </a>
+                                                        </div>
+                                                        <form class="needs-validation pt-3" novalidate="" id="action-call">
+                                                            <div class="row">
+                                                                <iframe id="image" style="width: 100%;height: 50vh; "></iframe>
+    
+                                                                <!-- <div class="col-md-12">
+                                                                    <div class="mb-3 d-flex">
+                                                                        <label class="form-label me-2" for="Choosefile">Caseld : </label>
+                                                                        
+                                                                        <span>4</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="mb-3 d-flex">
+                                                                        <label class="form-label me-2" for="Choosefile">Caseld : </label>
+                                                                        
+                                                                        <span>4</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <button class="btn btn-primary btn-lg my-3 " type="submit">Save</button>
+                                                                </div>
+     -->
+    
+    
+    
+    
+    
+                                                            </div>
+    
+    
+                                                        </form>
+    
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+    
+    
+    
+                                            </div>
+    
+    
+                                        </div><!-- /.modal-dialog -->
+                                    </div>
+                      
+                </div>
+                <!-- End Page-content -->
+                
+            </div>
+            <!-- end main content-->
+        </div>
+        </div>
+        {% include "common/right-sidebar.html" %}
+    
+        <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div> 
+
+    <script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'libs/jszip/jszip.min.js' %}"></script>
+    <script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+    <script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+    <!-- Datatable init js -->
+    <script src="{% static 'js/pages/crf/crfdetails2.init.js' %}"></script> 
+    
+    <script src="{% static 'js/app.js' %}"></script>
+
+    </body>
+
+    </html>

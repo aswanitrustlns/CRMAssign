@@ -1,0 +1,157 @@
+// :root CSS variables
+
+:root{
+
+  // Vertical Sidebar - Default Light
+
+  --#{$variable-prefix}sidebar-bg: #fbfaff;
+  --#{$variable-prefix}sidebar-menu-item-color: #545a6d;
+  --#{$variable-prefix}sidebar-menu-sub-item-color: #545a6d;
+  --#{$variable-prefix}sidebar-menu-item-icon-color: #545a6d;
+  --#{$variable-prefix}sidebar-menu-item-icon-effact-color: rgba(84,90,109,0.2);
+  --#{$variable-prefix}sidebar-menu-item-hover-color: #5156be;
+  --#{$variable-prefix}sidebar-menu-item-hover-effact-color: rgba(81,86,190,0.2);
+  --#{$variable-prefix}sidebar-menu-item-active-color: #5156be;
+  --#{$variable-prefix}sidebar-menu-item-active-effact-color: rgba(81,86,190,0.2);
+  --#{$variable-prefix}sidebar-border-color: #e9e9ef;
+  --#{$variable-prefix}sidebar-menu-item-active-bg-color: #f3f8fb;
+  --#{$variable-prefix}sidebar-menu-item-active-bg-color-dark: #293552;
+  --#{$variable-prefix}sidebar-alert: rgba(81,86,190,0.1);
+
+  // Vertical Sidebar - Dark
+  --#{$variable-prefix}sidebar-dark-bg: #2C302E; //2c313a
+  --#{$variable-prefix}sidebar-dark-menu-item-color: #99a4b1;
+  --#{$variable-prefix}sidebar-dark-menu-sub-item-color: #858d98;
+  --#{$variable-prefix}sidebar-dark-menu-item-icon-color: #858d98;
+  --#{$variable-prefix}sidebar-dark-menu-item-hover-color: #ffffff;
+  --#{$variable-prefix}sidebar-dark-menu-item-active-color: #ffffff;
+
+    // Topbar - Deafult Light
+  --#{$variable-prefix}header-bg: #ffffff;
+  --#{$variable-prefix}header-item-color: #555b6d;
+
+    // Topbar - Dark
+  --#{$variable-prefix}header-dark-bg: #ffffff;
+  --#{$variable-prefix}header-dark-item-color: #e9ecef;
+
+  // Topbar Search
+  --#{$variable-prefix}topbar-search-bg: #f3f3f9;
+  --#{$variable-prefix}topbar-dark-search-bg: #363a38;
+  --#{$variable-prefix}search-width: 0px;
+  --#{$variable-prefix}search-border-color: #e9e9ef;
+
+  // scss-docs-start box-shadow-variables
+  --#{$variable-prefix}box-shadow:      0 0.25rem 0.75rem rgba(18,38,63,.08);
+
+    // Footer
+  --#{$variable-prefix}footer-bg: #ffffff;
+  --#{$variable-prefix}footer-color: #74788d;
+
+  // Horizontal nav
+  --#{$variable-prefix}topnav-bg:   #fbfaff;
+  --#{$variable-prefix}topnav-item-color: #{$gray-400};
+  --#{$variable-prefix}topnav-item-color-active: #{$white};
+
+  --#{$variable-prefix}menu-item-color: #7b8190;
+  --#{$variable-prefix}menu-item-active-color: #5b73e8;
+
+    // body
+    --#{$variable-prefix}body-bg: #ffffff;
+    --#{$variable-prefix}body-color: #{$gray-700};
+    --#{$variable-prefix}body-color-rgb: #{to-rgb($body-color)};
+
+      // apex charts
+  --#{$variable-prefix}apex-grid-color: #f8f9fa;
+
+        // Display
+    --#{$variable-prefix}display-none: none;
+    --#{$variable-prefix}display-block: block;
+
+      // card-title-desc
+  --#{$variable-prefix}card-title-desc: #{$gray-600};
+  
+  // component variable
+
+  // theme-color
+  --#{$variable-prefix}light: #{$gray-200};
+  --#{$variable-prefix}light-rgb: #{to-rgb($gray-200)};
+  --#{$variable-prefix}dark: #{$gray-900};
+  --#{$variable-prefix}dark-rgb: #{to-rgb($gray-900)};
+  --#{$variable-prefix}text-muted: #{$gray-600};
+
+  // link
+  --#{$variable-prefix}link-color: #{$primary};
+  --#{$variable-prefix}link-hover-color: #{$primary};
+
+  // Border variable
+  --#{$variable-prefix}border-color:  #e9e9ef;
+
+  // dropdown
+  --#{$variable-prefix}dropdown-bg: #{$white};
+  --#{$variable-prefix}dropdown-link-color: #{$gray-900};
+  --#{$variable-prefix}dropdown-link-hover-color: #{shade-color($gray-900, 5%)};
+  --#{$variable-prefix}dropdown-link-hover-bg: #{$gray-100};
+  --#{$variable-prefix}dropdown-border-width: 0px;
+
+  // card
+  --#{$variable-prefix}card-bg: #{$white};
+  --#{$variable-prefix}card-cap-bg: #{$white};
+  --#{$variable-prefix}card-border-color: #{$gray-200};
+  --#{$variable-prefix}card-logo-dark: block;
+  --#{$variable-prefix}card-logo-light: none;
+
+  // modal
+  --#{$variable-prefix}modal-bg: #{$white};
+  --#{$variable-prefix}modal-content-bg: #{$white};
+  --#{$variable-prefix}modal-content-border-color: #{$gray-300};
+
+
+  // nav tabs
+  --#{$variable-prefix}nav-tabs-link-active-color: #{$gray-700};
+  --#{$variable-prefix}nav-tabs-link-active-bg: #{$body-bg};
+
+  // accordion
+  --#{$variable-prefix}accordion-button-active-color: #{shade-color($primary, 10%)};
+  --#{$variable-prefix}accordion-bg: #{$white};
+  --#{$variable-prefix}accordion-button-bg: #{$gray-200};
+
+    // table
+    --#{$variable-prefix}table-color: #{$body-color};
+
+    // Boxed layout 
+    --#{$variable-prefix}boxed-body-bg:       #f0f0f0;
+
+  // progress
+  --#{$variable-prefix}progress-bg: #{$gray-200};
+
+  // toast
+  --#{$variable-prefix}toast-background-color: #{rgba($white, .85)};
+  --#{$variable-prefix}toast-border-color: #{rgba($black, .1)};
+  --#{$variable-prefix}toast-header-border-color: #{rgba($black, .05)};
+
+  //list
+  --#{$variable-prefix}list-group-hover-bg: #{$gray-100};
+
+  // popover
+  --#{$variable-prefix}popover-bg: #{$white};
+
+  // pagination
+  --#{$variable-prefix}pagination-hover-bg: #{$gray-200};
+
+  // form
+  --#{$variable-prefix}input-bg: #{$white};
+  --#{$variable-prefix}input-group-addon-border-color: #{$gray-400};
+  --#{$variable-prefix}input-border: #{$gray-400};
+  --#{$variable-prefix}input-border-color: #{$gray-400};
+  --#{$variable-prefix}input-focus-border: #{tint-color($component-active-bg, 50%)};
+  --#{$variable-prefix}input-disabled-bg: #{$gray-200};
+
+  // input
+  --#{$variable-prefix}input-placeholder-color: #{$gray-600};
+  --#{$variable-prefix}input-group-addon-bg: #{$gray-200};
+
+  //check
+  --#{$variable-prefix}input-check-border: var(--#{$variable-prefix}input-border);
+
+  
+}

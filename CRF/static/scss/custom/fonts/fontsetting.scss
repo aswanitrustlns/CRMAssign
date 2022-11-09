@@ -1,0 +1,231 @@
+
+:root{
+  body{
+    --almarenamonodisplaybold: 'almarenamonodisplaybold';
+    --almarenamonodisplaylight: 'almeromonodisplaylight';
+    --almarenamonofwlight: 'almarenamonofwlight';
+    --almarenamonolight: 'almarenamonolight';
+    --gilroyregular:'gilroyregular';
+    --gilroymedium:'gilroymedium';
+    --gilroysemibold: 'gilroysemibold';
+    --verlagbold: 'verlagbold';
+  }
+}
+$almarenamonodisplaybold: var(--almarenamonodisplaybold);
+$almarenamonodisplaylight:var(--almeromonodisplaylight);
+$gilroymedium: var(--gilroymedium);
+$gilroysemibold: var(--gilroysemibold);
+$verlagbold: var(--verlagbold);
+$gilroyregular:var(--gilroyregular);
+$almarenamonolight: var(--almarenamonolight);
+$almarenamonofwlight: var(--almarenamonofwlight);
+//@font-face  /*Fonts tc */
+@font-face {
+    font-family: "almarenamonodisplaybold";
+    src: url("../../../../assets/fonts/Almarena-Mono-Complete-Family/AlmarenaAlmarenaMonoDisplayBold.otf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "almarenamonolight";
+    src: url("../../../../assets/fonts/Almarena-Mono-Complete-Family/AlmarenaAlmarenaMonoLight.otf");
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "almarenamonofwlight";
+    src: url("../../../../assets/fonts/Almarena-Mono-Complete-Family/AlmarenaAlmarenaMonoFWDisplayLight.otf");
+    font-display: swap;
+  }
+  //AlmarenaAlmarenaMonoFWDisplayLight.otf
+  @font-face {
+    font-family: "almarenamonodisplaylight";
+    src: url("../../../../assets/fonts/Almarena-Mono-Complete-Family/AlmarenaAlmarenaMonoDisplayLight.otf");
+    font-display: swap;
+  }
+  @font-face {
+  
+    font-family: "gilroymedium";
+    src: url("../../../../assets/fonts/gilroy/Gilroy-Medium.ttf");
+    font-display: swap;
+  }
+  @font-face {
+  
+    font-family: "gilroysemibold";
+    src: url("../../../../assets/fonts/gilroy/Gilroy-SemiBold.ttf");
+    font-display: swap;
+  }
+  @font-face {
+  
+    font-family: "gilroyregular";
+    src: url("../../../../assets/fonts/fonts/gilroy/Gilroy-Regular.ttf");
+    font-display: swap;
+  }
+  @font-face {
+  
+    font-family: "verlagbold";
+    src: url("../../../fonts/Verlag-Font-Family/Verlag-Bold.otf");
+    font-display: swap;
+  }
+  /*Fonts variables */
+  $fonts: 
+    "almarenamonodisplaybold" $almarenamonodisplaybold,
+    "almeromonodisplaylight" $almarenamonodisplaylight,
+    "gilroymedium" $gilroymedium,
+    "gilroysemibold" $gilroysemibold,
+    "verlagbold" $verlagbold,
+    "gilroyregular" $gilroyregular,
+    "almarenamonolight" $almarenamonolight,
+    "almarenamonofwlight" $almarenamonofwlight;
+    /*******Font class fontname-type********** gilroysemibold-type to get the font    ***********************/
+  
+  @each $i in $fonts {
+  
+    .#{nth($i, 1)}-type {
+      font-family: nth($i,2);
+    }
+  }
+  @mixin fs($prop,$size,$dm){
+    #{$prop}#{$size}: $size+$dm;
+
+    
+  }
+
+
+
+  /*Fonts sizes */
+
+  //$fs-23: 23
+  $fontsizeXLarge: 112px;
+  $fontsizeLarge: 86px;
+  $fontsizeMedium: 48px;
+  $fontsizeSmall30x: 30px;
+  $fontsizeSmall: 24px;
+  $fontsizeCopy: 16px;
+  $fssizeBody: 14px;
+  
+  :root{
+    --fontsizeXLarge: 112px;
+    --fontsizeLarge: 86px;
+    --fontsizeMedium: 48px;
+    --fontsizeSmall30x: 30px;
+    --fontsizeSmall: 24px;
+    --fontsizeCopy: 17px;
+    --fssizeBody: 14px;
+  }
+  @media screen and (max-width: 991px) {
+    :root{
+      --fontsizeXLarge: 72px;
+      --fontsizeLarge: 72px;
+      --fontsizeMedium: 48px;
+      --fontsizeSmall30x: 24px;
+      --fontsizeSmall: 24px;
+      --fontsizeCopy: 15px;
+      --fssizeBody: 14px;
+    }
+  }
+  
+  @media screen and (max-width: 575px) {
+    :root{
+      --fontsizeXLarge: 62px;
+      --fontsizeLarge: 62px;
+      --fontsizeMedium: 48px;
+      --fontsizeSmall30x: 22px;
+      --fontsizeSmall: 20px;
+      --fontsizeCopy: 15px;
+      --fssizeBody: 14px;
+    }
+  }
+  @media screen and (max-width: 445px) {
+    :root{
+      --fontsizeXLarge: 52px;
+      --fontsizeLarge: 52px;
+      --fontsizeMedium: 48px;
+      --fontsizeSmall30x: 22px;
+      --fontsizeSmall: 20px;
+      --fontsizeCopy: 15px;
+      --fssizeBody: 14px;
+    }
+  }
+
+  $fontsize: 
+  "xlarge"  var(--fontsizeXLarge),
+  "large"  var(--fontsizeLarge),
+  "medium" var(--fontsizeMedium),
+  "small" var(--fontsizeSmall),
+  "small30x" var(--fontsizeSmall30x),
+  "copy" var(--fontsizeCopy),
+  "body" var(--fssizeBody);
+
+
+@for $i from 1 to 100{
+
+  .fs-#{$i}{
+    font-size: $i + 0px;
+
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  @for $i from 1 to 100{
+
+    .fs-#{$i}{
+      font-size: $i - 0.5px;
+  
+    }
+  }
+  
+}
+
+@media screen and (max-width: 1100px) {
+  @for $i from 1 to 100{
+
+    .fs-#{$i}{
+      font-size: $i - 0.65px;
+  
+    }
+  }
+  
+}
+@media screen and (min-width: 991px) {
+  @for $i from 1 to 100{
+
+    .fs-lg-#{$i}{
+      font-size: $i + 0px;
+  
+    }
+  }
+  
+}
+
+@media screen and (max-width: 575px) {
+  @for $i from 1 to 100{
+
+    .fs-xs#{$i}{
+      font-size: $i + 0px;
+  
+    }
+  }
+  
+}
+
+@media screen and (max-width:768px) {
+  @for $i from 1 to 100{
+
+    .fs-sm#{$i}{
+      font-size: $i + 0px;
+  
+    }
+  }
+  
+}
+@media screen and (max-width:991px) {
+  @for $i from 1 to 100{
+
+    .fs-md#{$i}{
+      font-size: $i + 0px;
+  
+    }
+  }
+  
+}
+
+

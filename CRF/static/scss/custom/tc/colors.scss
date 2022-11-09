@@ -1,0 +1,60 @@
+
+
+:root{
+    [data-layout-mode="dark"]{
+     --orange: #FF4929;
+    --yellow: #FFA63F;
+    --yellowdark: #D18C42;
+    --green:  #00B929;
+    --carlestongreen:#252637;
+    --spanishgray: #989898;
+    --gunmetal:#2C2E43;
+    --purple: #494D86;
+    --darkcyan: #19BDB4;
+
+    }
+    
+
+}
+
+$orange: var(--orange);
+$yellow:var( --yellow);
+$yellowdark:var(  --yellowdark);
+$green:var(--green);
+$carlestongreen: var(--carlestongreen);//#252637
+$spanishgray: var(--spanishgray);//#989898
+$gunmetal: var(--gunmetal);
+$purple: var(--purple);
+$darkcyan: var(--darkcyan);
+
+$colorsarray:
+"orange" $orange,
+"yellow" $yellow,
+"yellowdark" $yellowdark,
+"green" $green,
+'carlestongreen' $carlestongreen,
+'spanishgray' $spanishgray,
+'gunmetal' $gunmetal,
+'purple' $purple,
+'darkcyan' $darkcyan;
+@each $i in $colorsarray {
+
+    .color-#{nth($i, 1)} {
+    
+        color: nth($i, 2) !important;
+    }
+    
+    .bg-soft-#{nth($i, 1)} {
+    
+        background-color: nth($i, 2) !important;
+    }
+    
+    
+}
+
+//@each $color,
+//$value in $theme-colors {
+    //.bg-soft-#{$color} {
+       // background-color: rgba(($value), 0.25) !important;
+    //}
+//}

@@ -1,0 +1,67 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div class="row">
+    
+            <div class="col-12">
+               
+                        
+                        <div class=" px-1 table-responsive" id="seminar-rep" style="max-height: 453px;">
+                            
+                            <table class="table mb-0  change " >
+
+                                <thead class="gilory-medium-type fs-16">
+                                    <tr>
+                                        <td>User Name</td>
+                                        <td>Name</td>
+                                        <td>Email</td>
+                                        <td>Member Type</td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>Company</td>
+                                        <td>Code</td>
+                                    </tr>
+                                </thead>
+                               
+                                <tbody class="gilory-regular-type fs-15 text-white" id="info-body">
+                                    {%for user in users%}
+                                    <tr>
+                                       
+                                        <td>{{user.username}}</td>
+                                        <td>{{user.name}}</td>
+                                        <td>{{user.email}}</td>
+                                        <td>{{user.membertype}}</td>
+                                       
+                                    </tr>
+                                    {%endfor%}
+                                    {%for company in companies%}
+                                    <tr>
+                                       
+                                        <td>{{company.company}}</td>
+                                        <td>{{company.code}}</td>
+                                        
+                                       
+                                    </tr>
+                                    {%endfor%}
+
+                                </tbody>
+                              
+                            </table>
+                        </div>
+                      
+                        
+
+               
+
+            </div> <!-- end col -->
+          
+
+
+
+        </div>
+    </body>
+</html>

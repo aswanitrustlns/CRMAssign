@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" lang="ar">
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      
+      <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
+      <style>
+        table td .dropdown-menu.show{
+                right: 0px;
+        left: auto;
+        transform: none;
+        display: flex;
+        }
+    </style>
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <div class="main-content ">
+
+            <div class="page-content " id="sales">
+                <div class="container-fluid">
+                              <!-- start page title -->
+                              <div class="row">
+                                  <div class="col-12">
+                                      <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                          <h4 class="mb-sm-0 fs-23 almarenamonolight-type">CRF case details </h4><!--font-size-18-->
+    
+                                          <!--<div class="page-title-right">
+                                              <ol class="breadcrumb m-0">
+                                                  <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                                  <li class="breadcrumb-item active">CRF case details </li>
+                                              </ol>
+                                          </div>-->
+    
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- end page title -->       
+                              <div class=" mb-4">
+                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to see the list of all CRF case on your account</p>
+    
+                                <hr class="my-4">
+                                </div>
+                                   <!--Search-->
+                                   <div class="row align-items-end">
+    
+                                    <div class="col-xxl-6 col-md-6 mb-2 ">
+        
+                                        <div class="row">
+        
+                                        
+                                            <div class="col-12">
+        
+                                                <form class="">
+                                                    <div class="row align-items-end ">
+                                                      
+                                                        <div class="col-sm-4 col-xxl-4">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for="Fromdate1">From date<span class="color-orange">*</span></label>
+                                                                <input  type="text" class="form-control" id="Fromdate1" placeholder="" required>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4 col-xxl-4">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for="Todate1">To date<span class="color-orange">*</span></label>
+                                                                <input  type="text" class="form-control" id="Todate1" placeholder="" required>
+                                                                    
+                                                                
+                                                            </div>
+                                                        </div>
+                                                       
+                                                        <div class="col-sm-4 col-xxl-2 " >
+                                                                <button class="btn  btn-info  btn-lg mb-2  me-2
+                                                                " type="button" id="" onclick="loadAll()">Load All</button>
+                                                        </div>
+                                                       
+                                                </div> 
+                                                </form>
+                                            </div>
+                                        
+                                        </div>
+        
+                                            
+                                    </div>
+                                    <div class="col-xxl-6 col-md-6  mb-2 ">
+    
+                                        <div class="row ">
+    
+                                            <div class="col-md-6 col-xxl-7"> 
+    
+                                                <div class="mb-2">
+    
+                                                    <input type="text" class="form-control  " placeholder="Search" id="myinputsearch1" >
+                                                </div>
+                                               
+    
+                                            </div>
+                                            <div class="col-md-6 col-xxl-5 d-flex justify-content-end flex-shrink-0">
+                                                <div class="mb-2">
+                                                    <div id="datatable-buttons_wrapper1">
+        
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                               <!--Data Table-->
+                                <div class="row">
+                                    <div class="col-12">
+                                             
+                                              <div class="card">
+    
+                                                    <div class="card-body" id="tasks-div">
+    
+                                                        <div class="table-responsive "   data-simplebar="init" >
+        
+                                                  
+                                                            <table  class="table dt-responsive  nowrap  w-100 change" id="datatable">
+                                                                <thead class="color-color1">
+                                                                    <tr  class=" gilorymedium-type fs-17">
+                                                                        <!-- <th  class="ps-0"> View</th>
+                                                                        <th >Caseld</th> -->
+                                                                        <th  >Case Code</th>
+                                                                        <th  >Task</th>
+                                                                        <!-- <th  >Description</th>     -->
+                                                                        <th>Created By</th>
+                                                                        <th>Assigned On</th>
+                                                                        <th >Company</th>
+                                                                        <th>Case Type</th>
+                                                                        <th>Priority</th>
+                                                                        <th>Status</th>
+                                                                        <th></th>
+                                                                        <!-- <th>Re Open</th>
+                                                                        <th class="text-end ">Upload Docs</th> -->
+                                                                      
+                                                                        
+                                                                    </tr>
+                                                                </thead>
+                
+                
+                                                                <tbody class="text-white giloryregular-type fs-16" >
+                                                                    {%for case in cases%} 
+                                                                    <tr style="cursor: pointer;" >
+                                                                       
+                                                                        <!-- <td class="ps-0" style="cursor: pointer;" onclick="loadMoreDeatails({{case.caseid}})"> <span class="color-green text-decoration-underline"  >View</span> </td> -->
+                                                                                                                                                                                                        <!-- data-bs-toggle="modal" data-bs-target=".bs-example-modal-show" -->
+                                                                        <!-- <td>{{case.caseid}}</td>  -->
+                                                                        <td>{{case.casecode}}</td>   
+                                                                        <td>{{case.topic}}</td>
+                                                                        <!-- <td>{{case.description}}</td> -->
+                                                                        <td>{{case.userid}}</td>
+                                                                        <td>{{case.regdate|date:"Y-m-d"}}</td>
+                                                                        <td>{{case.companyid}}</td>
+
+                                                                        <td>{{case.casetype}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {%if case.priority == 'Low' %}
+                                                                                <button class="btn  btn-sm  text-danger fs-15" style="background-color:
+                                                                                                rgba(255, 3, 3, 0.15) ;">{{case.priority}}</button>
+                                                                            {%else%}
+                                                                            {{case.priority}}
+                                                                            {% endif %}
+                                                                            
+                                                                        
+                                                                        </td>
+                                                                        <td>{{case.status}}</td>
+                                                                        <td>
+                                                                            <div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                                                                <i class='bx bx-dots-vertical-rounded'></i></a>
+                                                                                <div class='dropdown-menu' style='cursor:pointer'>
+                                                                                    <a class='dropdown-item' onclick="loadMoreDeatails({{case.caseid}})">View More</a><a class='dropdown-item' onclick="editStatus({{case.caseid}})">
+                                                                                    Edit Status</a><a class='dropdown-item' onclick="reassign({{case.caseid}})">Reassign</a></div></div>
+                                                                                </td>
+
+                                                                     
+                                                                        <!-- <td>{{case.assignedto}}</td>
+                                                                        
+                                                                         <td><button class="btn  btn-sm   fs-15" style="background-color: rgba(25, 118, 210, 0.11) ;color:rgba(25, 118, 210, 1) ;" onclick="resolve('{{case.caseid}}','{{case.casecode}}')">Resolve </button></td>
+                                                                        
+                                                                         <td class="text-end "><button class="btn  btn-sm   fs-15" style="background-color: rgba(255, 124, 72, 0.15) ;color:rgba(255, 124, 72, 1) ;" onclick="reopen('{{case.caseid}}','{{case.casecode}}')">Re Open</button></td>
+                                                                         <td class="text-end "><button class="btn  btn-sm  color-green fs-15" style="background-color: rgba(0, 165, 79, 0.15) ;color:rgba(255, 124, 72, 1) ;" onclick="docupload('{{case.caseid}}','{{case.casecode}}')">Upload</button></td>
+                                                                        
+                                                                     -->
+                                                                    </tr>
+                                                                    {%endfor%}
+                                                                
+                                                                </tbody>
+                                                            
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                              </div>
+                                                
+                                              
+        
+                                     
+                                    </div>
+                                </div>   
+                                
+                                <!--Model-->
+                                       <!---Modal Upload document-->
+                                       <div class="modal fade  bs-example-modal-show" tabindex="-1" role="dialog" aria-hidden="true" id="reassign-model">
+                                                            
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content ">
+    
+    
+    
+                                                <div class="modal-body ">
+    
+    
+                                                    <div class="  px-0  ">
+    
+                                                        <div class="modal-header border-0 px-0">
+                                                            <h5 class="modal-title fs-21 ">ReAssign </h5>
+    
+                                                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    </svg>
+    
+                                                                </a>
+                                                        </div>
+                                                        <form class="needs-validation pt-3" novalidate="" id="action-call">
+                                                            <div class="row">
+    
+    
+                                                                <div class="col-md-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Assigned To</label>
+                                                                        
+                                                                        <select class="form-select" id="reassign-employee">
+                                                                            {%for employ in employees%}
+                                                                            <option value="{{employ.userid}}">{{employ.name}}</option>
+                                                                            {%endfor%}
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="Choosefile">Priority</label>
+                                                                        
+                                                                        <select class="form-select" id="reassign-priority">
+                                                                            {%for prior in priority%}
+                                                                            <option value="{{prior.id}}">{{prior.priority}}</option>
+                                                                            {%endfor%}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" >Status</label>
+                                                                        <select  class="form-select" id="reassign-status"  value="" required name="assignedto">
+                                                                            
+                                                                            <option value="Completed">Completed</option>
+                                                                            
+                                                                            <option value="Followup">Followup</option>
+                                                                            <option value="ReOpen">ReOpen</option>
+                                                                            <option value="Pending">Pending</option>
+                                                                            <option value="Management Approval Pending">Management Approval Pending</option>
+                                                                        </select>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" >Description</label>
+                                                                        
+                                                                        <textarea name="description" id="reassign-description" class="form-control"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="reassigntask" id="reassigntaskId">
+                                                                <div class="col-md-12">
+                                                                    <button class="btn btn-primary btn-lg my-3 " type="button" onclick="reassignUpdate()">ReAssign</button>
+                                                                </div>
+    
+                                                            </div>
+    
+    
+                                                        </form>
+    
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+    
+    
+    
+                                            </div>
+    
+    
+                                        </div><!-- /.modal-dialog -->
+                                    </div>
+                      
+                </div>
+                <!-- End Page-content -->
+                
+            </div>
+            <!-- end main content-->
+        </div>
+    </div>
+    {% include "common/right-sidebar.html" %}
+    
+    <!-- Right bar overlay-->
+<div class="rightbar-overlay"></div> 
+<div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+    <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class=" fs-16" id="userMsg">
+                    
+                </h5>
+                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                    </a>
+                </div>
+                                    
+                    <!-- <div class="modal-body" >
+        
+        
+                            <div data-simplebar style="max-height: 230px;">
+            
+                              
+                                
+                            </div>
+                        </div> -->
+           
+        </div>
+     </div>
+    </div>
+    <div class="modal fade  bs-example-modal-show" tabindex="-1" role="dialog" aria-hidden="true" id="edit-status">
+                                                            
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+
+
+
+                <div class="modal-body ">
+
+
+                    <div class="  px-0  ">
+
+                        <div class="modal-header border-0 px-0">
+                            <h5 class="modal-title fs-21 ">Edit Status</h5>
+
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+
+                                </a>
+                        </div>
+                        <form class="needs-validation pt-3" novalidate="" id="action-call">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" >Status</label>
+                                        <select  class="form-select" id="status-update"  value="" required name="assignedto">
+                                            
+                                            <option value="Completed">Completed</option>
+                                            
+                                            <option value="Followup">Followup</option>
+                                            <option value="ReOpen">ReOpen</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Management Approval Pending">Management Approval Pending</option>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" >Description</label>
+                                        
+                                        <textarea name="description" id="status-description" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                               <input type="hidden" name="caseid" id="CaseId">
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary btn-lg my-3 " type="button" onclick="statusUpdate()">Update</button>
+                                </div>
+
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div><!-- /.modal-content -->
+
+
+
+            </div>
+
+
+        </div><!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade  bs-example-modal-document" tabindex="-1" role="dialog" aria-hidden="true" id="upload-model">
+                                                        
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+
+
+
+                <div class="modal-body ">
+
+
+                    <div class="  px-3 border rounded-3">
+
+                        <div class="modal-header border-0 px-0">
+                            <h5 class="modal-title fs-21 ">Upload document </h5>
+
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+
+                                </a>
+                        </div>
+                        <form class="needs-validation pt-3" novalidate="" id="image-upload-save" enctype="multipart/form-data">
+                            <div class="row">
+
+
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <input type="hidden" name="caseid" id="caseid-upload">
+                                        <label class="form-label " for="Choosefile">Choosefile<span class="color-orange">*</span></label>
+                                        
+                                        <div class="form-control  d-flex justify-content-between position-relative align-items-center"  id="choosefilefield" style="height: 41px;">
+                                            <input  type="file" class="form-control position-absolute" id="choosefile" placeholder="" required  style="top:0;left:0; right:0; opacity: 0; z-index: 1258;" name="docfile">
+                                            <span id="choosetext" class="fs-10"></span>
+                                            <svg  width="14" height="19" viewBox="0 0 14 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.97494 9V11.9167C6.97494 13.525 8.28327 14.8333 9.8916 14.8333C11.4999 14.8333 12.8083 13.525 12.8083 11.9167V7.33333C12.8083 4.10833 10.1999 1.5 6.97494 1.5C3.74994 1.5 1.1416 4.10833 1.1416 7.33333V12.3333C1.1416 15.0917 3.38327 17.3333 6.1416 17.3333" stroke="#73759D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                    
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary btn-lg my-3 " type="button" onclick="uploadSave()">Save</button>
+
+                                    </div>
+
+
+
+
+
+
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div><!-- /.modal-content -->
+
+
+
+            </div>
+
+
+        </div><!-- /.modal-dialog -->
+    </div>
+
+<script>
+    function loadAll(){
+        var fromdate=$("#Fromdate1").val()
+        var todate=$("#Todate1").val()
+        var url="{% url 'CRFAPP:viewTask'%}"
+        window.location.href=url+"?&from="+fromdate+"&to="+todate
+    }
+    function loadMoreDeatails(caseId){
+        console.log("Case Id====="+caseId)
+        var url="{% url 'CRFAPP:CRFDetails'%}"
+        window.location.href=url+"?&Case="+caseId
+    }
+    function editStatus(caseid){
+        console.log("Case id==="+caseid)
+        $("#CaseId").val(caseid)
+        $("#edit-status").modal('show')
+    }
+    function reassign(caseid){
+        $("#reassigntaskId").val(caseid)
+        $("#reassign-model").modal('show')
+    }
+    function statusUpdate(){
+        $("#edit-status").modal('hide')
+        var caseid=$("#CaseId").val()
+        var status=$("#status-update").val()
+        var description=$("#status-description").val()
+
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'CRFAPP:StatusUpdate' %}",
+                    dataType: 'json',
+                    data:{
+                        'id':caseid,
+                        'description':description,
+                        'status':status
+                    },
+                    success: function(data){
+                        $("#userMsg").empty()
+                            $("#userMsg").append("Updated Successfully")
+                            $("#alertpopup").modal('show')
+                        var url="{% url 'CRFAPP:viewTask'%}"
+                        window.location.href=url
+                    }
+})
+    }
+    function reassignUpdate(){
+        $("#reassign-model").modal('hide')
+        var caseid=$("#reassigntaskId").val()
+        var priority=$("#reassign-priority").val()
+        var status=$("#reassign-status").val()
+        var description=$("#reassign-description").val()
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'CRFAPP:StatusUpdate' %}",
+                    dataType: 'json',
+                    data:{
+                        'id':caseid,
+                        'description':description,
+                        'status':status,
+                        'priority':priority
+                    },
+                    success: function(data){
+                        $("#userMsg").empty()
+                            $("#userMsg").append("Re Assigned Successfully")
+                            $("#alertpopup").modal('show')
+                        var url="{% url 'CRFAPP:viewTask'%}"
+                        window.location.href=url
+                    }
+                })
+    }
+</script>
+<script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+<!-- Required datatable js -->
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %} "></script>
+<!-- Datatable init js -->
+<script src="{% static 'js/pages/botrans.init.js' %}"></script> 
+<script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'libs/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+<!-- Datatable init js -->
+<script src="{% static 'js/crfdetails.init.js' %}"></script> 
+
+<script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>
