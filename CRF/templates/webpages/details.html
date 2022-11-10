@@ -128,16 +128,16 @@
                                                                             
                                                                             <!-- <th >Case DetailId</th> -->
                                                                             <!-- <th  >Case Code</th> -->
-                                                                            <th  >Topic</th>
+                                                                            <th  >Task</th>
                                                                         
                                                                             
-                                                                            <th>Case Types</th>
+                                                                            <th>Description</th>
                                                                             <!-- <th>Name</th> -->
-                                                                            <th>Priority</th>
-                                                                            <th>Modified</th>
-                                                                            <th>Completion Date</th>
-                                                                            <th>Exp CompletionDate</th>
+                                                                            <th>Assigned On</th>
+                                                                            <th>Assignee</th>
                                                                             <th>Status</th>
+                                                                            <th>Priority</th>
+                                                                            
                                                                             <th></th>
                                                                             <!-- <th>Resolve</th>
                                                                             
@@ -153,20 +153,21 @@
                                                                         <tr>
                                                                             <!-- <td>{{detail.casedetailid}}</td>  -->
                                                                             <td>{{detail.topic}}</td>   
-                                                                            <td>{{detail.casetype}}</td>
-                                                                            <td>{{detail.priority}}</td>
-                                                                            <td>{{detail.modified|date:"Y-m-d"}}</td>
-                                                                            <td>{{detail.completiondate|date:"Y-m-d"}}</td>
-                                                                            <td>{{detail.expcompletion|date:"Y-m-d"}}</td>
+                                                                            <td>{{detail.description}}</td>
+                                                                            <td>{{detail.regdate|date:"Y-m-d"}}</td>
+                                                                            <td>{{detail.userid}}</td>
                                                                             <td>{{detail.status}}</td>
+                                                                            <td>{{detail.priority}}</td>
+                                                                            
+                                                                            
                                                                             <td>
                                                                                 <div class='dropdown align-self-start'>
                                                                                 <a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                                                                                     <i class='bx bx-dots-vertical-rounded'></i>
                                                                                 </a>
                                                                                     <div class='dropdown-menu' style='cursor:pointer'>
-                                                                                        <a class='dropdown-item' onclick="loadMoreDeatails({{case.caseid}})">Edit Status</a>
-                                                                                        <a class='dropdown-item'>
+                                                                                        <a class='dropdown-item' onclick="editStatus({{detail.casedetailid}})">Edit Status</a>
+                                                                                        <a class='dropdown-item' >
                                                                                         Upload Doc</a>
                                                                                     </div>
                                                                                 </div>
@@ -320,84 +321,7 @@
                                                             
                                                             </ul>
                                                         </div>
-                                                        <!-- <div class="px-3"  >
-                                                            
-                                                        
-                                                            <div class=" mt-3">
-                                                                <form action="" class="row needs-validation ">
-    
-    
-    
-    
-                                                                    <div class="col-md-12 mb-2">
-    
-                                                                        <textarea name="" id="" cols="30" rows="3" class="form-control" style="background-color: transparent !important;"></textarea>
-    
-                                                                        <button  class="btn btn-sm btn-primary me-2   position-absolute" type="submit" style="right: 15px; bottom: 10px;" >Send</button>
-                                                                    </div>
-                                                                    <div class="col-md-12  ">
-    
-                                                                        <div class="row">
-    
-                                                                            <div class="col-md-3 mb-2">
-                                                                                <label class="form-label mb-1" for="Call">Call</label>
-                                                                                <select class=" form-select  py-1" id="Call" style="background-color: transparent !important;">
-                                                                                    <option value="">
-                                                                                        1
-                                                                                    </option>
-                                                                                <select>
-                                                                            </div>
-                                                                            <div class="col-md-3 mb-1">
-                                                                                <label class="form-label mb-1" for="Interest">Interest</label>
-    
-                                                                                <select class=" form-select  py-1" id="Interest" style="background-color: var(--bs-card-bg)  !important;">
-                                                                                    <option value="">
-                                                                                        1
-                                                                                    </option>
-                                                                                    <option value="">
-                                                                                        1
-                                                                                    </option>
-                                                                                <select>
-                                                                            </div>
-                                                                            <div class="col-md-3 mb-1">
-                                                                                <label class="form-label mb-1" for="Exp">Exp</label>
-    
-                                                                                <select class=" form-select  py-1" id="Exp" style="background-color: transparent  !important;">
-                                                                                    <option value="">
-                                                                                        1
-                                                                                    </option>
-                                                                                <select>
-                                                                            </div>
-                                                                            <div class="col-md-3 mb-1">
-                                                                                <label class="form-label mb-1" for="temp">None</label>
-    
-                                                                                <select class=" form-select py-1" style="background-color: transparent !important ;">
-                                                                                    <option value="">
-                                                                                        1
-                                                                                    </option>
-                                                                                <select>
-                                                                            </div>
-                                                                        </div>
-    
-                                                                    </div>
-                                                                </form>
-                                                            
-                                                            
-    
-                                                            
-                                                            
-                                                            </div>
-                                                        
-                                                            
-    
-                                                        </div>
-     -->
-                                                        
-                                                        
-    
                                                     </div>
-    
-                                                    
     
                                                 </div>
     
@@ -438,28 +362,6 @@
                                                             <div class="row">
                                                                 <iframe id="image" style="width: 100%;height: 50vh; "></iframe>
     
-                                                                <!-- <div class="col-md-12">
-                                                                    <div class="mb-3 d-flex">
-                                                                        <label class="form-label me-2" for="Choosefile">Caseld : </label>
-                                                                        
-                                                                        <span>4</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="mb-3 d-flex">
-                                                                        <label class="form-label me-2" for="Choosefile">Caseld : </label>
-                                                                        
-                                                                        <span>4</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <button class="btn btn-primary btn-lg my-3 " type="submit">Save</button>
-                                                                </div>
-     -->
-    
-    
-    
-    
     
                                                             </div>
     
@@ -488,7 +390,165 @@
     
         <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div> 
+    <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+        <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class=" fs-16" id="userMsg">
+                        
+                    </h5>
+                    <a href="" data-bs-dismiss="modal" aria-label="Close">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+    
+                        </a>
+                    </div>
+                                        
+                        <!-- <div class="modal-body" >
+            
+            
+                                <div data-simplebar style="max-height: 230px;">
+                
+                                  
+                                    
+                                </div>
+                            </div> -->
+               
+            </div>
+         </div>
+        </div>
+    <div class="modal fade  bs-example-modal-show" tabindex="-1" role="dialog" aria-hidden="true" id="edit-status">
+                                                            
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
 
+
+
+                <div class="modal-body ">
+
+
+                    <div class="  px-0  ">
+
+                        <div class="modal-header border-0 px-0">
+                            <h5 class="modal-title fs-21 ">Edit Status</h5>
+
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+
+                                </a>
+                        </div>
+                        <form class="needs-validation pt-3" novalidate="" id="action-call">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" >Status</label>
+                                        <select  class="form-select" id="status-update"  value="" required name="assignedto">
+                                            
+                                            <option value="Completed">Completed</option>
+                                            
+                                            <option value="Followup">Followup</option>
+                                            <option value="ReOpen">ReOpen</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Management Approval Pending">Management Approval Pending</option>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label" >Description</label>
+                                        
+                                        <textarea name="description" id="status-description" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                               <input type="hidden" name="caseid" id="detailCaseId">
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary btn-lg my-3 " type="button" onclick="statusUpdate()">Update</button>
+                                </div>
+
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div><!-- /.modal-content -->
+
+
+
+            </div>
+
+
+        </div><!-- /.modal-dialog -->
+    </div>
+    <script>
+        function editStatus(detailid){
+        console.log("Case id==="+detailid)
+        $("#detailCaseId").val(detailid)
+        $("#edit-status").modal('show')
+        }
+        function viewDocs(docId)
+        {
+        console.log("Document Id==="+docId)
+        
+        $.ajax({
+                        
+                        type : "GET", 
+                        
+                        url: "{% url 'CRFAPP:ViewDoc' %}",
+                       
+                        data:{
+                            "id":docId,
+                            
+                            
+                        },
+                        success: function(data){
+                        imagepath=data.imagepath
+                        console.log("Image path====="+imagepath)
+                        let image = document.getElementById("image");
+ 
+                         image.src =imagepath
+                        $("#image-modal").modal('show')
+                        // $("#userMsg").empty()
+                        // $("#userMsg").append(data.message)
+                        // $("#alertpopup").modal('show')
+                        }
+                    })
+    }
+    
+        function statusUpdate(){
+        $("#edit-status").modal('hide')
+        var caseid=$("#detailCaseId").val()
+        var status=$("#status-update").val()
+        var description=$("#status-description").val()
+
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'CRFAPP:CaseDetailUpdate' %}",
+                    dataType: 'json',
+                    data:{
+                        'id':caseid,
+                        'description':description,
+                        'status':status
+                    },
+                    success: function(data){
+                        $("#userMsg").empty()
+                            $("#userMsg").append("Updated Successfully")
+                            $("#alertpopup").modal('show')
+                            location.reload()
+                    }
+})
+    }
+    </script>
     <script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
     <script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
     <script src="{% static 'libs/jszip/jszip.min.js' %}"></script>

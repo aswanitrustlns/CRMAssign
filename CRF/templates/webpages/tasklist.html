@@ -208,7 +208,13 @@
                                                                                 <i class='bx bx-dots-vertical-rounded'></i></a>
                                                                                 <div class='dropdown-menu' style='cursor:pointer'>
                                                                                     <a class='dropdown-item' onclick="loadMoreDeatails({{case.caseid}})">View More</a><a class='dropdown-item' onclick="editStatus({{case.caseid}})">
-                                                                                    Edit Status</a><a class='dropdown-item' onclick="reassign({{case.caseid}})">Reassign</a></div></div>
+                                                                                    Edit Status</a>
+                                                                                    {%if request.session.MemberType != "ASSIGNEE" %}
+                                                                                    <a class='dropdown-item' onclick="reassign({{case.caseid}})">Reassign</a>
+                                                                                    
+                                                                                    {%endif%} 
+                                                                                </div>
+                                                                            </div>
                                                                                 </td>
 
                                                                      
@@ -565,16 +571,18 @@
         var priority=$("#reassign-priority").val()
         var status=$("#reassign-status").val()
         var description=$("#reassign-description").val()
+        var reassignedto=$("#reassign-employee").val()
         $.ajax({
                     
                     type : "GET", 
-                    url: "{% url 'CRFAPP:StatusUpdate' %}",
+                    url: "{% url 'CRFAPP:ReassignTask' %}",
                     dataType: 'json',
                     data:{
                         'id':caseid,
                         'description':description,
                         'status':status,
-                        'priority':priority
+                        'priority':priority,
+                        'assignto':reassignedto
                     },
                     success: function(data){
                         $("#userMsg").empty()

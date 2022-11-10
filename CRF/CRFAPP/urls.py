@@ -11,7 +11,10 @@ urlpatterns=[
      path('viewTask',view_tasks,name='viewTask'),
      path('CRFDetails',detailed_page,name="CRFDetails"),
      path('display',viewall_users,name="display"),
-     path('StatusUpdate',status_update,name="StatusUpdate")
+     path('StatusUpdate',status_update,name="StatusUpdate"),
+     path('ReassignTask',reassign_task,name="ReassignTask"),
+     path('ViewDoc',view_document,name="ViewDoc"),
+     path('CaseDetailUpdate',detail_status_update,name="CaseDetailUpdate")
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
