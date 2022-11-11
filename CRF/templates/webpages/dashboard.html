@@ -41,7 +41,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                <h4 class="mb-sm-0 fs-23 almarenamonolight-type">Analytics Overview</h4><!--font-size-18-->
+                                <h4 class="mb-sm-0 fs-23 almarenamonolight-type">Tasks Overview</h4><!--font-size-18-->
                    
                                 <!--<div class="page-title-right">
                                     <ol class="breadcrumb m-0">
@@ -55,278 +55,7 @@
                     </div>
                     <!-- end page title -->
                     <!--Analytics overview-->
-                    {% for item in overview %}
-                    
-                
-                    <div class="row">
-    
-                        <div class="col-xl-3  col-lg-3  col-md-6 col-sm-6 ">
-                            <!-- card -->
-                            <div class="card card-h-100">
-                                <!-- card body -->
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col-12 d-flex">
-                                            <span class="text-muted mb-3 lh-1 d-block text-truncate">
-                                                <i
-                                                    class=" border rounded-3 d-inline-block p-2 font-size-20 bg-soft-gunmetal">
-    
-                                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M1.75 7.4375H11.8125" stroke="#CACBD8" stroke-width="1.5"
-                                                            stroke-miterlimit="10" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path d="M5.25 14.4375H7" stroke="#CACBD8" stroke-width="1.5"
-                                                            stroke-miterlimit="10" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path d="M9.1875 14.4375H12.6875" stroke="#CACBD8"
-                                                            stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path
-                                                            d="M19.25 9.65125V14.0963C19.25 17.1675 18.4712 17.9375 15.365 17.9375H5.635C2.52875 17.9375 1.75 17.1675 1.75 14.0963V6.90375C1.75 3.8325 2.52875 3.0625 5.635 3.0625H11.8125"
-                                                            stroke="#CACBD8" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path d="M14.4375 5.25L15.75 6.5625L19.25 3.0625" stroke="#CACBD8"
-                                                            stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                    </svg>
-    
-    
-    
-                                                </i>
-                                            </span>
-                                            <div class="ms-4">
-                                                <h4 class="mb-1">
-                                                    <span class="counter-value almarenamonolight-type" data-target={{ item.0}}></span>
-                                                </h4>
-                                                <div class="text-nowrap">
-                                                    <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                    <span class="ms-1 text-muted fs-14 gilroysemibold-type">New Account</span>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-    
-    
-                                    </div>
-                                    
-                                </div><!-- end card body -->
-                            </div>
-                            <!-- end card -->
-                        </div><!-- end col -->
-    
-                        <!--Previus Version Design--><!--
-                        <div class="col-xl-3  col-lg-3  col-md-6 col-sm-6 ">
-                            
-                            <div class="card card-h-100">
-                               
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col-12 d-flex">
-                                            <span class="text-muted mb-3 lh-1 d-block text-truncate">
-                                                <i
-                                                    class=" border rounded-3 d-inline-block p-2 font-size-20 bg-soft-gunmetal">
-    
-                                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.87505 19.25H13.1251C17.5001 19.25 19.2501 17.5 19.2501 13.125V7.875C19.2501 3.5 17.5001 1.75 13.1251 1.75H7.87505C3.50005 1.75 1.75005 3.5 1.75005 7.875V13.125C1.75005 17.5 3.50005 19.25 7.87505 19.25Z"
-                                                            stroke="#CACBD8" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path
-                                                            d="M13.5626 16.1875C14.5251 16.1875 15.3126 15.4 15.3126 14.4375V6.5625C15.3126 5.6 14.5251 4.8125 13.5626 4.8125C12.6001 4.8125 11.8126 5.6 11.8126 6.5625V14.4375C11.8126 15.4 12.5913 16.1875 13.5626 16.1875Z"
-                                                            stroke="#CACBD8" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path
-                                                            d="M7.43755 16.1875C8.40005 16.1875 9.18755 15.4 9.18755 14.4375V11.375C9.18755 10.4125 8.40005 9.625 7.43755 9.625C6.47505 9.625 5.68755 10.4125 5.68755 11.375V14.4375C5.68755 15.4 6.4663 16.1875 7.43755 16.1875Z"
-                                                            stroke="#CACBD8" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                    </svg>
-    
-    
-                                                </i>
-                                            </span>
-    
-                                            <div class="ms-2">
-    
-                                                <h4 class="mb-1">
-    
-                                                    <span class="counter-value almarenamonolight-type" data-target="16">0</span>
-                                                </h4>
-                                                <div class="text-nowrap">
-                                                   
-                                                    <span class="ms-1 text-muted fs-14 gilroysemibold-type">Sales Leads</span>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-    
-    
-                                    </div>
-                                   
-                                </div>>
-                            </div>
-                        </div>-->
-                        <div class="col-xl-3  col-lg-3  col-md-6 col-sm-6 ">
-                            <!-- card -->
-                            <div class="card card-h-100">
-                                <!-- card body -->
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col-12 d-flex">
-                                            <span class="text-muted mb-3 lh-1 d-block text-truncate">
-                                                <i
-                                                    class=" border rounded-3 d-inline-block p-2 font-size-20 bg-soft-gunmetal">
-    
-                                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M7.87505 19.25H13.1251C17.5001 19.25 19.2501 17.5 19.2501 13.125V7.875C19.2501 3.5 17.5001 1.75 13.1251 1.75H7.87505C3.50005 1.75 1.75005 3.5 1.75005 7.875V13.125C1.75005 17.5 3.50005 19.25 7.87505 19.25Z"
-                                                            stroke="#CACBD8" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path
-                                                            d="M13.5626 16.1875C14.5251 16.1875 15.3126 15.4 15.3126 14.4375V6.5625C15.3126 5.6 14.5251 4.8125 13.5626 4.8125C12.6001 4.8125 11.8126 5.6 11.8126 6.5625V14.4375C11.8126 15.4 12.5913 16.1875 13.5626 16.1875Z"
-                                                            stroke="#CACBD8" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path
-                                                            d="M7.43755 16.1875C8.40005 16.1875 9.18755 15.4 9.18755 14.4375V11.375C9.18755 10.4125 8.40005 9.625 7.43755 9.625C6.47505 9.625 5.68755 10.4125 5.68755 11.375V14.4375C5.68755 15.4 6.4663 16.1875 7.43755 16.1875Z"
-                                                            stroke="#CACBD8" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                    </svg>
-    
-    
-                                                </i>
-                                            </span>
-    
-                                            <div class="ms-4">
-    
-                                                <h4 class="mb-1">
-    
-                                                    <span class="counter-value almarenamonolight-type" data-target={{ item.1}}></span>
-                                                </h4>
-                                                <div class="text-nowrap">
-                                                    <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                    <span class="ms-1 text-muted fs-14 gilroysemibold-type">Sales Leads</span>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-    
-    
-                                    </div>
-                                   
-                                </div><!-- end card body -->
-                            </div><!-- end card -->
-                        </div><!-- end col -->
-                        <div class="col-xl-3  col-lg-3  col-md-6 col-sm-6">
-                            <!-- card -->
-                            <div class="card card-h-100">
-                                <!-- card body -->
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col-12 d-flex">
-                                            <span class="text-muted mb-3 lh-1 d-block text-truncate">
-                                                <i
-                                                    class=" border rounded-3 d-inline-block p-2 font-size-20 bg-soft-gunmetal">
-    
-                                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.4375 8.3125L10.7625 11.9875L9.3625 9.8875L6.5625 12.6875"
-                                                            stroke="#CACBD8" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path d="M12.6875 8.3125H14.4375V10.0625" stroke="#CACBD8"
-                                                            stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path
-                                                            d="M7.875 19.25H13.125C17.5 19.25 19.25 17.5 19.25 13.125V7.875C19.25 3.5 17.5 1.75 13.125 1.75H7.875C3.5 1.75 1.75 3.5 1.75 7.875V13.125C1.75 17.5 3.5 19.25 7.875 19.25Z"
-                                                            stroke="#CACBD8" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                    </svg>
-    
-    
-    
-                                                </i>
-                                            </span>
-                                            <div class="ms-4">
-                                                <h4 class="mb-1">
-    
-                                                    <span class="counter-value almarenamonolight-type" data-target={{ item.2}}></span>
-                                                </h4>
-    
-                                                <div class="text-nowrap">
-                                                    <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                    <span class="ms-1 text-muted fs-14 gilroysemibold-type">Potential Leads</span>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-    
-    
-                                    </div>
-                                   
-                                </div><!-- end card body -->
-                            </div><!-- end card -->
-                        </div><!-- end col -->
-                        <div class="col-xl-3  col-lg-3  col-md-6 col-sm-6">
-                            <!-- card -->
-                            <div class="card card-h-100">
-                                <!-- card body -->
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col-12 d-flex">
-                                            <span class="text-muted mb-3 lh-1 d-block text-truncate">
-                                                <i
-                                                    class=" border rounded-3 d-inline-block p-2 font-size-20 bg-soft-gunmetal">
-    
-                                                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M19.25 8.75V11.375C19.25 14.875 17.5 16.625 14 16.625H13.5625C13.2912 16.625 13.0287 16.7562 12.8625 16.975L11.55 18.725C10.9725 19.495 10.0275 19.495 9.45 18.725L8.1375 16.975C7.9975 16.7825 7.67375 16.625 7.4375 16.625H7C3.5 16.625 1.75 15.75 1.75 11.375V7C1.75 3.5 3.5 1.75 7 1.75H12.25"
-                                                            stroke="#CACBD8" stroke-width="1.5" stroke-miterlimit="10"
-                                                            stroke-linecap="round" stroke-linejoin="round" />
-                                                        <path
-                                                            d="M17.0625 6.125C18.2706 6.125 19.25 5.14562 19.25 3.9375C19.25 2.72938 18.2706 1.75 17.0625 1.75C15.8544 1.75 14.875 2.72938 14.875 3.9375C14.875 5.14562 15.8544 6.125 17.0625 6.125Z"
-                                                            stroke="#CACBD8" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path d="M13.9969 9.625H14.0048" stroke="#CACBD8" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round" />
-                                                        <path d="M10.496 9.625H10.5039" stroke="#CACBD8" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round" />
-                                                        <path d="M6.99519 9.625H7.00305" stroke="#CACBD8" stroke-width="2"
-                                                            stroke-linecap="round" stroke-linejoin="round" />
-                                                    </svg>
-    
-    
-    
-    
-                                                </i>
-                                            </span>
-                                            <div class="ms-4">
-                                                <h4 class="mb-1">
-    
-                                                    <span class="counter-value almarenamonolight-type" data-target={{ item.3}}></span>
-                                                </h4>
-                                                <div class="text-nowrap">
-                                                    <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                    <span class="ms-1 text-muted fs-14 
-                                                    gilroysemibold-type">Sales Enquiries</span>
-                                                </div>
-    
-                                            </div>
-                                           
-                                        </div>
-    
-    
-                                    </div>
-                                    
-                                </div><!-- end card body -->
-                            </div><!-- end card -->
-                        </div><!-- end col -->
-    
-    
-                    </div>
-                    {% endfor %}
+                 
                     <!-- end row-->
     
                     <!--Account Summary-->
@@ -338,7 +67,7 @@
                                 <!-- card body -->
                                 <div class="card-body">
                                     <div class="d-flex flex-wrap align-items-center mb-4">
-                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Account Summary</h5>
+                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Task Summary</h5>
                                      
                                     </div>
                                     <div class="row align-items-center">
@@ -356,20 +85,20 @@
     
     
                                                 </div>
-    
+                                                <a href="{% url 'CRFAPP:viewTask'%}?&status=Pending">
                                                 <div class="flex-grow-1 ms-2">
     
     
     
                                                     <div class="text-nowrap">
                                                         <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Total calls today</span>
+                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Pending Tasks</span>
                                                     </div>
                                                     <h4 class="mb-1">
-                                                        <span class="counter-value gilroysemibold-type" data-target={{spoken_call_one}}>0</span>
+                                                        <span class="counter-value gilroysemibold-type" data-target={{pending}}>{{pending}}</span>
                                                     </h4>
                                                 </div>
-    
+                                            </a>
     
     
     
@@ -399,6 +128,7 @@
     
     
                                                 </div>
+                                                <a href="{% url 'CRFAPP:viewTask'%}?&status=Completed">
     
                                                 <div class="flex-grow-1 ms-2">
     
@@ -406,13 +136,13 @@
     
                                                     <div class="text-nowrap">
                                                         <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Live accounts this week</span>
+                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Completed Tasks</span>
                                                     </div>
                                                     <h4 class="mb-1">
-                                                        <span class="counter-value gilroysemibold-type" data-target={{live_account}}>0</span>
+                                                        <span class="counter-value gilroysemibold-type" data-target={{completed}}>{{completed}}</span>
                                                     </h4>
                                                 </div>
-    
+                                            </a>
     
     
     
@@ -445,21 +175,21 @@
     
     
                                                 </div>
-    
+                                                <a href="{% url 'CRFAPP:viewTask'%}?&status=ReOpen">
                                                 <div class="flex-grow-1 ms-2">
     
     
     
                                                     <div class="text-nowrap">
                                                         <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Meetings this week</span>
+                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Reopened Tasks</span>
                                                     </div>
                                                     <h4 class="mb-1">
-                                                        <span class="counter-value gilroysemibold-type" data-target={{meeting_count}}>{{meeting_count}}</span>
+                                                        <span class="counter-value gilroysemibold-type" data-target={{reopen}}>{{reopen}}</span>
                                                     </h4>
                                                 </div>
     
-    
+                                            </a>
     
     
     
@@ -484,20 +214,20 @@
     
     
                                                 </div>
-    
+                                                <a href="{% url 'CRFAPP:viewTask'%}">
                                                 <div class="flex-grow-1 ms-2">
     
     
     
                                                     <div class="text-nowrap">
                                                         <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Total leads today</span>
+                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Total Tasks</span>
                                                     </div>
                                                     <h4 class="mb-1">
-                                                        <span class="counter-value gilroysemibold-type" data-target={{leads}}>{{leads}}</span>
+                                                        <span class="counter-value gilroysemibold-type" data-target={{total}}>{{total}}</span>
                                                     </h4>
                                                 </div>
-    
+                                            </a>
     
     
     
@@ -521,649 +251,22 @@
                         <!--Weekly seminar + Weekly live accounts created-->
                     </div>
                     <!--Today’s Calls, Daily Meetings-->
-                    <div class="row">
-    
-                        <div class=" col-xl-4 col-lg-4 col-md-12">
-                            <!-- card -->
-                            <div class="card card-h-100">
-                                <!-- card body -->
-                                <div class="card-body">
-                                    <div class="d-flex flex-wrap align-items-center mb-4">
-                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Today’s Calls</h5>
-                                     
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-xl-12" data-simplebar style="max-height: 252px ;">
-                                            {% for call in spoken_call %}
-                                                
-                                            <div class="d-flex align-items-center">
-    
-                                                <div class="flex-shrink-0 me-3">
-                                                    
-      
-      
-                                                    <img class="rounded-circle  avatar-md" src="{%static 'images/users/'%}{{call.0}}.png" onerror='this.src="{% static 'images/users/user.png' %}"' alt="Generic placeholder image">
-                                                    
-                                               
-                                                </div>
-                                                <div class="flex-grow-1 ">
-                                                    <h5 class="mb-1 fs-15 gilroymedium-type">{{call.0}}</h5>
-                                                    <div class="progress progress-md">
-                                                        <div class="progress-bar bg-soft-orange" role="progressbar" style="width: {{ call.2 }}%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <div class="d-flex justify-content-between">
-                                                        <!-- <p class="mb-0 mt-1 fs-12 text-muted  gilroymedium-type">Below Average</p> -->
-                                                        <p class="mb-0 mt-1 fs-12 text-muted  gilroymedium-type">{{call.1}} Calls</p>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                            <hr>
-                                           {%endfor%}
-    
-                                        </div>
-                                        
-    
-                                    </div><!-- end card body -->
-                                </div><!-- end card -->
-                            </div><!-- end col -->
-    
-    
-    
-                        </div>
-    
-                        <div class="col-xl-8 col-lg-8 col-md-12">
-                            <!-- card -->
-                            <div class="card card-h-100">
-                                <!-- card body -->
-                                <div class="card-body">
-                                    <div class="d-flex flex-wrap align-items-center mb-4">
-                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Daily Meetings</h5>
-                                        <div class="ms-auto">
-                                            <div>
-                                                <button type="button" class="btn btn-sm fs-13 gilroymedium-type text-white bg-soft-gunmetal" onclick="switchtab(this,'#tab01','#tab02')">
-                                                    Daily
-                                                </button>
-                                                <button type="button" class="btn btn-sm fs-13 gilroymedium-type text-white" onclick="switchtab(this,'#tab02','#tab01')">
-                                                    Weekly
-                                                </button>
-    
-                                            </div>
-                                        </div>
-                                     
-                                    </div>
-                                    <div class="row  ">
-                                        <div class="col-xl-5 col-lg-5  d-flex flex-column  h1-00 justify-content-start"  data-simplebar="" style="max-height: 252px ;">
-    
-                                            {%if all_meetings %}
-                                            {%for meeting in all_meetings%}
-    
-                                            <div class="d-flex align-items-center mb-3 px-2 py-2 rounded-3" style="background-color:#141527 ;">
-                                                <div class="flex-shrink-0 me-3">
-                                                    <img class="rounded-circle  avatar-md" src="{%static 'images/users/'%}{{meeting.1}}.png" onerror='this.src="{% static 'images/users/user.png' %}"' alt="Generic placeholder image">
-                                                </div>
-                                                <div class="flex-grow-1 d-flex justify-content-between align-items-center ">
-                                                    <div>
-                                                        <h5 class="mb-0 fs-14 gilroymedium-type">{{meeting.1}}</h5>
-                                                   
-                                                        <p class="mb-0  fs-12  gilroymedium-type">{{meeting.3}}</p>
-                                                    </div>
-                                                    <a class="me-2" href="#">
-                                                        <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M1.22082 1.38012L5.02416 5.18345C5.47333 5.63262 5.47333 6.36762 5.02416 6.81678L1.22083 10.6201" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                            </svg>
-                                                            
-                                                    </a>
-                                                    
-                                                </div>
-                                            </div>
-                                            {%endfor%}
-                                            {% else %}
-                                                <div>
-                                                    No meetings today
-                                                </div>
-    
-                                            {%endif%}
-                                           
-                                          
-                                            
-                                          
-    
-    
-                                        </div>
-                                       
-    
-                                            <div class="col-xl-7 col-lg-7 pe-lg-5 " >
-    
-                                                <div class="row align-items-center flex-column " >
-                                                    
-                                                    <div class="col-sm px-1 py-4 rounded "   style="background-color:#1E1F30 ;">
-                                                        <h5 class="card-title  text-center fs-16 almarenamonolight-type">Meetings Report</h5>
-                                                    <div id="tab01" class="d-block">
-                                                        <div id="meetings_report_d"
-                                                        data-colors='["#E7CE79","#645993","#D18C42","#71CCFF","#FF4929","#00A54F"]'
-                                                            
-                                                            class="apex-charts" dir="ltr">
-                                                        </div>
-                                                    </div>
-                                                    <div id="tab02" class="d-none">
-                                                        <div id="meetings_report_w"
-                                                        data-colors='["#E7CE79","#645993","#D18C42","#71CCFF","#FF4929","#00A54F"]'
-                                                            
-                                                            class="apex-charts" dir="ltr">
-                                                        </div>
-                                                    </div>
-                                                        <!--<div id="leads" data-colors='["#40434A", "#2A99FF", "#fff","#65A6C9"]' class="apex-charts"></div>-->
-                                                    </div>
-                
-                                                </div>
-                                            </div>
-                                       
-                                        
-                                       
-                                        
-    
-                                    </div><!-- end card body -->
-                                </div><!-- end card -->
-                            </div><!-- end col -->
-    
-    
-    
-                        </div>
-                    </div>
+                   
     
                     <!--Weekly Seminar + Weekly Live Accounts-->
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6">
-                            <!-- card -->
-                            <div class="card card-h-100">
-                                <!-- card body -->
-                                <div class="card-body">
-                                    <div class="d-flex flex-wrap align-items-center mb-4">
-                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Seminars</h5>
-                                        <div class="ms-auto">
-                                            <div>
-                                                <button type="button" class="btn btn-sm fs-13 gilroymedium-type text-white bg-soft-gunmetal" onclick="switchtab(this,'#tab03','#tab04')" >
-                                                    Daily
-                                                </button>
-                                                <button type="button" class="btn btn-sm fs-13 gilroymedium-type text-white" onclick="switchtab(this,'#tab04','#tab03')">
-                                                    Weekly
-                                                </button>
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div id="tab03" class="d-block">  
-    
-                                        <div class="row align-items-center card-h-100">
-                                            <div class="col-xl-6">
-                                                <!-- data-list="'{{seminarcount_weekly|safe}}'" -->
-                                                <div id="weekly-seminar_d" data-colors='["#FF4929","#19BDB4","#5D62AB","#2C2E57","#ED589D","#E9BBD5"]'  
-                                                    class="apex-charts"></div> 
-                                            </div>
-                                            {%if seminar_daily_pie %}
-                                            <div class="col-xl-6 align-self-center">
-                                                <div class="mt-4 mt-sm-0 mb-3 mb-xl-0 d-flex d-xl-block justify-content-center flex-wrap ">
-                                                    {% for seminar in seminarcount_daily %}
-                                                    
-                                                    <div class="ms-2 ms-xl-0">
-                                                        <p class="mb-2 gilroymedium-type fs-14 text-muted"><i
-                                                                class="mdi mdi-circle align-middle font-size-10 me-2" style="color: {%cycle  '#19BDB4' '#FF4929' '#5D62AB' '#2C2E57' '#ED589D' '#E9BBD5' %}"
-                                                               ></i>{{seminar.0}}</p>
-                                                        <!--<h6>0.4412 BTC = <span class="text-muted font-size-14 fw-normal">$ 4025.32</span></h6>-->
-                                                    </div>
-        
-                                                   {%endfor%}
-                                                   
-                                                </div>
-                                            </div>
-                                            {%endif%}
-                                        </div>
-                                    </div>
-                                 
-                                    
-                                 
-                                    <div id="tab04" class="d-none">
-    
-                                    <div class="row align-items-center card-h-100">
-                                        <div class="col-xl-6">
-                                            <!-- data-list="'{{seminarcount_weekly|safe}}'" -->
-                                            <div id="weekly-seminar_w" data-colors='["#FF4929","#19BDB4","#5D62AB","#2C2E57","#ED589D","#E9BBD5"]'  
-                                                class="apex-charts"></div> 
-                                        </div>
-                                        {%if seminar_weekly_pie %} 
-                                        <div class="col-xl-6 align-self-center">
-                                            <div class="mt-4 mt-sm-0 mb-3 mb-xl-0 d-flex d-xl-block justify-content-center flex-wrap ">
-                                                {% for seminar in seminarcount_weekly %}
-                                                <div class="ms-2 ms-xl-0">
-                                                    <p class="mb-2 gilroymedium-type fs-14 text-muted"><i
-                                                            class="mdi mdi-circle align-middle font-size-10 me-2" style="color: {%cycle  '#19BDB4' '#FF4929' '#5D62AB' '#2C2E57' '#ED589D' '#E9BBD5' %}">                                                 
-                                                        </i>{{seminar.0}}</p>
-                                                    <!--<h6>0.4412 BTC = <span class="text-muted font-size-14 fw-normal">$ 4025.32</span></h6>-->
-                                                </div>
-    
-                                               {%endfor%}
-                                               
-                                            </div>
-                                        </div>
-                                        {%endif%}
-                                    </div>
-                                </div>
-                               
-                                </div>
-                            </div>
-                            <!-- end card -->
-                        </div>
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="card">
-    
-                                <div class="card-body">
-                                    <div class="d-flex flex-wrap align-items-center mb-4">
-                                        <h5 class="card-title me-2 fs-21 almarenamonolight-type">Live Accounts</h5>
-                                        <div class="ms-auto">
-                                            <div>
-                                                <!-- 
-                                                    onclick="weekly_live_click('d')" 
-                                                    onclick="weekly_live_click('w')"
-                                                -->
-                                                <button type="button" class="btn btn-sm fs-13 gilroymedium-type text-white bg-soft-gunmetal" onclick="switchtab(this,'#tab05','#tab06')">
-                                                    Daily
-                                                </button>
-                                                <button type="button" class="btn btn-sm fs-13 gilroymedium-type text-white" onclick="switchtab(this,'#tab06','#tab05')">
-                                                    Weekly
-                                                </button>
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- data-series="'{{livecount_daily}}'" -->
-                                    <div id="tab05" class="d-block">
-                                        <div id="column_chart_live_accounts_d"
-                                        data-colors='["#2C2D43","#FF4929","#43B5F4","#494D86","#2C4332","#40432C"]'  class="apex-charts" dir="ltr">
-                                        </div>
-                                    </div>
-                                    <div id="tab06" class="d-none">
-                                        <div id="column_chart_live_accounts_w"
-                                        data-colors='["#2C2D43","#FF4929","#43B5F4","#494D86","#2C4332","#40432C"]'  class="apex-charts" dir="ltr">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end card-->
-                        </div>
-    
-                    </div>
+                 
                     <!-- end row-->
     
                     <!--Journal + Active Users-->
-                    <div class="row">
-                        <div class="col-xl-7 col-lg-7">
-                            <div class="card">
-    
-    
-                                <div class="card-body ">
-    
-                                    <div class="d-flex flex-wrap align-items-left flex-column mb-4">
-                                        <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Journal</h5>
-                                        <span class="mt-0 text-muted gilroymedium-type fs-15">Recent activities</span>
-    
-                                    </div>
-                                    <div class="px-3 pt-2" data-simplebar style="max-height: 352px;">
-                                        <ul class="list-unstyled activity-wid mb-0">
-    
-                                            {% for journel in journels %} 
-    
-                                            <li class="activity-list activity-border">
-                                                <div class="activity-icon avatar-md">
-                                                    <span
-                                                        class="avatar-title bg-soft-warning text-warning rounded-circle">
-                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                        <img class="rounded-circle avatar-md"
-                                                            src="{%static 'images/users/avatar-1.jpg' %}" alt="">
-                                                    </span>
-                                                </div>
-                                                <div class="timeline-list-item">
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1 overflow-hidden me-4">
-                                                            <h5 class="font-size-14 mb-1 gilroymedium-type fs-15">{{journel.2}} : {{journel.1}}</h5>
-                                                            <p class="text-truncate text-muted font-size-13 gilroymedium-type fs-12 d-flex justify-content-between">{{journel.0}}
-                                                            <span class="flex-shrink-0 text-end me-3">
-                                                                <svg
-                                                                    width="15" height="15" viewBox="0 0 15 15"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M13.75 7.5C13.75 10.95 10.95 13.75 7.5 13.75C4.05 13.75 1.25 10.95 1.25 7.5C1.25 4.05 4.05 1.25 7.5 1.25C10.95 1.25 13.75 4.05 13.75 7.5Z"
-                                                                        stroke="#9C9C9C" stroke-width="1.5"
-                                                                        stroke-linecap="round"
-                                                                        stroke-linejoin="round" />
-                                                                    <path
-                                                                        d="M9.81875 9.48751L7.88125 8.33126C7.54375 8.13126 7.26875 7.65001 7.26875 7.25626V4.69376"
-                                                                        stroke="#9C9C9C" stroke-width="1.5"
-                                                                        stroke-linecap="round"
-                                                                        stroke-linejoin="round" />
-                                                                </svg> <span class="ms-1">{{journel.3}}</span>
-                                                            </span>
-                                                            
-                                                            </p>
-                                                        </div>
-                                                        
-                                                
-                                                    </div>
-                                                </div>
-                                            </li>
-    
-                                            {%endfor%}
-    
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- end card body -->
-                            </div>
-                            <!-- end card -->
-                        </div>
-                        <div class="col-xl-5 col-lg-5">
-                            <div class="card card-h-100">
-    
-    
-                                <div class="card-body ">
-    
-                                    <div class="d-flex flex-wrap align-items-center mb-4">
-                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Active Users</h5>
-    
-                                    </div>
-    
-                                    <!--User1 -->
-                                    <div data-simplebar="" style="max-height: 352px ;">
-                                    {% for users in active_users %}
-                                    <div class="d-flex  align-items-center">
-                                        <div class="flex-shrink-0 position-relative">
-                                            <!--position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-->
-                                           
-                                            <span
-                                                class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-success p-1 d-block" style="top: 10px!important;left: 95%!important;">
-                                            </span>
-                                            
-                                            <img class="rounded-circle avatar-md" src="{%static 'images/users/avatar-1.jpg' %}"
-                                                alt="Generic placeholder image">
-    
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <h5 class="gilroymedium-type fs-14">{{users.0}}</h5>
-                                            <div class="d-flex justify-content-between ">
-                                                <!-- <p class="mb-0 gilroymedium-type fs-12 text-muted">Offline</p> -->
-                                                <div class="fs-13 d-flex align-items-center"> <svg width="15"
-                                                        height="15" viewBox="0 0 15 15" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M13.75 7.5C13.75 10.95 10.95 13.75 7.5 13.75C4.05 13.75 1.25 10.95 1.25 7.5C1.25 4.05 4.05 1.25 7.5 1.25C10.95 1.25 13.75 4.05 13.75 7.5Z"
-                                                            stroke="#9C9C9C" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                        <path
-                                                            d="M9.81875 9.48751L7.88125 8.33126C7.54375 8.13126 7.26875 7.65001 7.26875 7.25626V4.69376"
-                                                            stroke="#9C9C9C" stroke-width="1.5" stroke-linecap="round"
-                                                            stroke-linejoin="round" />
-                                                    </svg> <span class="ms-1 gilroymedium-type text-muted">{{users.2}}</span>
-                                                </div>
-    
-                                            </div>
-    
-                                        </div>
-                                    </div>
-    
-                                    <hr>
-                                    {%endfor %}
-                                </div>
-                                    <!--User2 -->
-                                  
-    
-                                    
-                                </div><!-- end card-body -->
-                            </div><!-- end card -->
-                        </div><!-- end col -->
-    
-    
-    
-    
-                    </div>
+             
                     <!-- end row-->
                 
                     <!-- end row-->
                     <!---Active Campaigns+ -->
-                    <div class="row">
-    
-                        <div class="col-xl-12">
-                            <div class="card">
-    
-    
-                                <div class="card-body ">
-    
-                                    <div class="d-flex flex-wrap align-items-center mb-4">
-                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Active Campaigns</h5>
-                                        <div class="ms-auto">
-    
-                                            <div class="dropdown d-inline-block">
-                                                <button type="button" class="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i data-feather="bell" class="icon-lg"></i>
-                                                    <span class="badge bg-danger rounded-pill">{{active_campaigns_count}}</span>
-                                                </button>
-                                                <!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                                                    aria-labelledby="page-header-notifications-dropdown">
-                                                    <div class="p-3">
-                                                        <div class="row align-items-center">
-                                                            <div class="col">
-                                                                <h6 class="m-0"> Notifications </h6>
-                                                            </div>
-                                                            <div class="col-auto">
-                                                                <a href="#!" class="small text-reset text-decoration-underline"> Unread (3)</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div data-simplebar style="max-height: 230px;">
-                                                        <a href="#!" class="text-reset notification-item">
-                                                            <div class="d-flex">
-                                                                <div class="flex-shrink-0 me-3">
-                                                                    <img src="{%static 'images/users/avatar-3.jpg' %}" class="rounded-circle avatar-sm" alt="user-pic">
-                                                                </div>
-                                                                <div class="flex-grow-1">
-                                                                    <h6 class="mb-1">James Lemire</h6>
-                                                                    <div class="font-size-13 text-muted">
-                                                                        <p class="mb-1">It will seem like simplified English.</p>
-                                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        <a href="#!" class="text-reset notification-item">
-                                                            <div class="d-flex">
-                                                                <div class="flex-shrink-0 avatar-sm me-3">
-                                                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                                                        <i class="bx bx-cart"></i>
-                                                                    </span>
-                                                                </div>
-                                                                <div class="flex-grow-1">
-                                                                    <h6 class="mb-1">Your order is placed</h6>
-                                                                    <div class="font-size-13 text-muted">
-                                                                        <p class="mb-1">If several languages coalesce the grammar</p>
-                                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>3 min ago</span></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        <a href="#!" class="text-reset notification-item">
-                                                            <div class="d-flex">
-                                                                <div class="flex-shrink-0 avatar-sm me-3">
-                                                                    <span class="avatar-title bg-success rounded-circle font-size-16">
-                                                                        <i class="bx bx-badge-check"></i>
-                                                                    </span>
-                                                                </div>
-                                                                <div class="flex-grow-1">
-                                                                    <h6 class="mb-1">Your item is shipped</h6>
-                                                                    <div class="font-size-13 text-muted">
-                                                                        <p class="mb-1">If several languages coalesce the grammar</p>
-                                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>3 min ago</span></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                
-                                                        <a href="#!" class="text-reset notification-item">
-                                                            <div class="d-flex">
-                                                                <div class="flex-shrink-0 me-3">
-                                                                    <img src="{%static 'images/users/avatar-6.jpg' %}" class="rounded-circle avatar-sm" alt="user-pic">
-                                                                </div>
-                                                                <div class="flex-grow-1">
-                                                                    <h6 class="mb-1">Salena Layfield</h6>
-                                                                    <div class="font-size-13 text-muted">
-                                                                        <p class="mb-1">As a skeptical Cambridge friend of mine occidental.</p>
-                                                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    
-                                                </div> -->
-                                            </div>
-                                            <!--<a href="" class=" mb-0 my-n1">Active Campaigns</a>-->
-    
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive" data-simplebar="" style="max-height: 352px ;">
-                                        <table class="table mb-0">
-    
-                                            <thead class="almarenamonolight-type fs-14">
-                                                <tr>
-                                                    
-                                                    <th>Source</th>
-                                                    <th>Duration</th>
-                                                    <th class="text-end">Count</th>
-    
-                                                </tr>
-                                            </thead>
-                                            <tbody class="gilroymedium-type fs-14">
-                                            {%for campaigns in active_campaigns%}
-                                                <tr>
-                                                    <th scope="row">{{campaigns.0}}</th>
-                                                    
-                                                    <td><i class="mdi-calendar-month mdi me-1"></i> {{campaigns.1|date:"M d,Y"}}-{{campaigns.2|date:"M d,Y"}}</td>
-                                                    <td class="text-end">{{campaigns.3}}</td>
-    
-                                                </tr>
-                                            {%endfor%}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- end card body -->
-                            </div>
-                            <!-- end card -->
-                        </div>
-    
-                     
-    
-                    </div>
+                 
                     <!-- end row-->
                     <!--Leads + Leads by Source-->
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-5 ">
-                            <!-- card -->
-                            <div class="card card-h-100">
-                                <!-- card body -->
-                                <div class="card-body">
-                                    <div class="d-flex flex-wrap align-items-center mb-4">
-                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Leads</h5>
-                                        <div class="ms-auto">
-                                            <div>
-                                                <p class=" gilroymedium-type fs-13 text-muted">{% now "M Y" %}</p>
-                                                
-    
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="row align-items-center flex-column">
-                                        <div class="col-sm">
-                                            <div id="leads" data-colors='["#6354C5","#2A99FF","#ED589D","#4ABC8C","#E8651B"]'
-                                                class="apex-charts"></div>
-                                        </div>
-                                        <div class="col-sm align-self-center">
-                                            <div class="">
-    
-                                                <div class="row justify-content-center justify-content-lg-start align-items-center flex-wrap ">
-                                                    <div class="  col-6  col-md-3 pt-2 col-lg-5 col-xl-5">
-                                                        <p class="mb-1 gilroymedium-type fs-15"><i
-                                                                class="mdi mdi-circle align-middle font-size-10 me-2"
-                                                                style="color: #6354C5"></i>Spoken</p>
-                                                        <!--<h6>0.4412 BTC = <span class="text-muted font-size-14 fw-normal">$ 4025.32</span></h6>-->
-                                                    </div>
-    
-                                                    <div class="  col-6  col-md-3 pt-2 col-lg-5 col-xl-5">
-                                                        <p class="mb-2 gilroymedium-type fs-15"><i
-                                                                class="mdi mdi-circle align-middle font-size-10 me-2 "
-                                                                style="color:#2A99FF;"></i> Busy</p>
-    
-                                                    </div>
-    
-                                                    <div class="  col-6  col-md-3 pt-2  col-lg-5 col-xl--5">
-                                                        <p class="mb-1  gilroymedium-type fs-15"><i
-                                                                class="mdi mdi-circle align-middle font-size-10 me-2 "
-                                                                style="color:#ED589D"></i> NoReply</p>
-    
-                                                    </div>
-                                                    <div class=" col-6  col-md-3 pt-2  col-lg-5 col-xl-5">
-                                                        <p class="mb-1 gilroymedium-type fs-15"><i
-                                                                class="mdi mdi-circle align-middle font-size-10 me-2 "
-                                                                style="color:#4ABC8C"></i> WrongCalls</p>
-    
-                                                    </div>
-                                                    <div class=" col-6  col-md-3 pt-2  col-lg-5 col-xl-5">
-                                                        <p class="mb-1 gilroymedium-type fs-15"><i
-                                                                class="mdi mdi-circle align-middle font-size-10 me-2 "
-                                                                style="color:#E8651B"></i> Resolved</p>
-    
-                                                    </div>
-    
-    
-    
-                                                </div>
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end card -->
-                        </div>
-                        <div class="col-xl-8  col-lg-7">
-                            <div class="card">
-    
-                                <div class="card-body">
-                                    <div class="d-flex flex-wrap align-items-center mb-4">
-                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Leads by Source</h5>
-                                        <div class="ms-auto">
-                                            <div>
-                                                <p class=" gilroymedium-type fs-13 text-muted">{% now "M Y" %}</p>
-                                                <!--<button type="button" class="btn btn-soft-secondary btn-sm">
-                                                    Daily
-                                                </button>
-                                                <button type="button" class="btn btn-soft-primary btn-sm">
-                                                    Weekly
-                                                </button>-->
-    
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="column_chart_leadsbysource"
-                                        data-colors='["#2C2D43","#72D4AB"]' class="apex-charts"
-                                        dir="ltr"></div>
-                                </div>
-                            </div>
-                            <!--end card-->
-                        </div>
-    
-                    </div>
+                
                     <!-- end row-->
     
                     <!--Ticket Dialed + Tickets Processed-->
@@ -1172,23 +275,7 @@
                     
                     <!-- end row-->
     
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title mb-0 almarenamonolight-type fs-21">Half Yearly Data of the<br>
-                                        Sales Team</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div id="spline_area" data-colors='["#5156be", "#2ab57d","#FFD572","#FF4929","#ED589D"]' class="apex-charts"
-                                        dir="ltr"></div>
-                                </div>
-                            </div>
-                            <!--end card-->
-                        </div>
-    
-    
-                    </div>
+                   
                         <!-- end row -->
     
                 </div>

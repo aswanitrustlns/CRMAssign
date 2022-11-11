@@ -193,16 +193,24 @@
                                                                         <td>{{case.casetype}}
                                                                         </td>
                                                                         <td>
-                                                                            {%if case.priority == 'Low' %}
-                                                                                <button class="btn  btn-sm  text-danger fs-15" style="background-color:
-                                                                                                rgba(255, 3, 3, 0.15) ;">{{case.priority}}</button>
-                                                                            {%else%}
                                                                             {{case.priority}}
-                                                                            {% endif %}
-                                                                            
-                                                                        
                                                                         </td>
-                                                                        <td>{{case.status}}</td>
+                                                                        <td>
+                                                                            {% if case.status == 'Pending' %}
+                                                                                <button class="btn  btn-sm  text-danger fs-15" style="background-color:
+                                                                                                rgba(255, 3, 3, 0.15) ;">{{case.status}}</button>
+                                                                            {% elif case.status == 'Completed'%}
+                                                                            <button class="btn  btn-sm  color-green fs-15" style="background-color:
+                                                            rgba(0, 165, 79, 0.15) ;">
+                                                                            {{case.status}}
+                                                                            </button>
+                                                                            {% else %}
+                                                                            <button class="btn  btn-sm  text-warning fs-15" style="background-color:
+                                                                rgba(221, 174, 6, 0.15) ;">
+                                                                            {{case.status}}
+                                                                        </button>
+                                                                            {% endif %}
+                                                                        </td>
                                                                         <td>
                                                                             <div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                                                                                 <i class='bx bx-dots-vertical-rounded'></i></a>
@@ -524,7 +532,13 @@
         var fromdate=$("#Fromdate1").val()
         var todate=$("#Todate1").val()
         var url="{% url 'CRFAPP:viewTask'%}"
-        window.location.href=url+"?&from="+fromdate+"&to="+todate
+        if(fromdate=="" && todate==""){
+            window.location.href=url
+        }
+        else{
+            window.location.href=url+"?&from="+fromdate+"&to="+todate
+        }
+        
     }
     function loadMoreDeatails(caseId){
         console.log("Case Id====="+caseId)

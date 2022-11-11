@@ -20,12 +20,7 @@ $(document).ready(function () {
          fixedHeader: true,
          buttons: [ 'print','copy','csv'],
      });
-     var input = document.getElementById('choosefile');
-    //nput.type = 'file';
-    input.onchange = e => { 
-    var file = e.target.files[0]; 
-    $('#choosetext').text( file.name);
- }
+ 
     //table1 btns
     table1.buttons().container()
     .appendTo('#datatable-buttons_wrapper1 ');

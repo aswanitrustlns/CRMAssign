@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from .models import TblUser,TblCompany,TblPriority,TblCases,TblCasedetails,TblDocuments,TblCasesummary
 from django.contrib.sessions.models import Session
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse,FileResponse
 from datetime import datetime,timedelta,date
-
+import os
 # Create your views here.
 def login(request):
     
@@ -39,21 +39,44 @@ def login_check(request):
         
 def dashboard(request):
     if 'UserID' in request.session:
-        return render(request,'webpages/dashboard.html')
+        userid=request.session.get('UserID')
+        pending=TblCases.objects.filter(status="Pending",assignedto=userid).count()
+        completed=TblCases.objects.filter(status="Completed",assignedto=userid).count()
+        reopen=TblCases.objects.filter(status="ReOpen",assignedto=userid).count()
+        total=TblCases.objects.filter(assignedto=userid).count()
+        return render(request,'webpages/dashboard.html',{'pending':pending,'completed':completed,'reopen':reopen,'total':total})
     else:
         return render(request,'webpages/login.html')
 def view_tasks(request):
     if 'UserID' in request.session:
         fromdate=request.GET.get('from')
         todate=request.GET.get('to')
+        status=request.GET.get('status')
+        print("Status=====",status)
         userid=request.session.get('UserID')
+        membertype=request.session.get('MemberType')
         priority=TblPriority.objects.all()
         employees=TblUser.objects.exclude(userid=userid).filter(membertype__in=["SUPER USER","ADMIN","ASSIGNEE"])
         print("From date To date=====",fromdate,todate,userid)
-        if((fromdate==None and todate==None) or(fromdate=="" and todate=="")):
-            cases=TblCases.objects.filter(assignedto=userid)
-        else:
-            cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate,assignedto=userid)
+        if(status!=None):
+                print("Status not none")
+                if(membertype=="SUPER USER" or membertype=="ADMIN"):
+                    cases=TblCases.objects.filter(status=status)
+                else:
+                    cases=TblCases.objects.filter(status=status,assignedto=userid)
+                
+        if(((fromdate!=None and todate!=None) ) and status==None ):
+            print("From")
+            if(membertype=="SUPER USER" or membertype=="ADMIN"):
+                    cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate)
+            else:
+                    cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate,assignedto=userid)
+            
+        if(fromdate==None and todate==None and status==None):
+            if(membertype=="SUPER USER" or membertype=="ADMIN"):
+                cases=TblCases.objects.all() 
+            else:
+                cases=TblCases.objects.filter(assignedto=userid) 
         return render(request,'webpages/tasklist.html',{'cases':cases,'priority':priority,'employees':employees})
         # print("Cases====",list(cases))
         # return JsonResponse(cases,safe=False)
@@ -105,8 +128,8 @@ def detail_status_update(request):
         case=TblCasedetails.objects.get(casedetailid=caseid)
         case.status=status
         
-        if(description!=""):
-            case.description=description
+        # if(description!=""):
+        #     case.description=description
         case.save()
         modified=datetime.now()
         desctime=modified.strftime("%d/%m/%Y %H:%M:%S")
@@ -147,9 +170,9 @@ def reassign_task(request):
     else:
         return redirect('/login')
 def view_document(request):
-    if 'UserId' in request.session:
+    if 'UserID' in request.session:
         docid=request.GET.get('id')
-        imagedetail=TblDocuments.objects.using('crf').filter(id=docid)
+        imagedetail=TblDocuments.objects.filter(id=docid)
         contenttype=""
         imagetype=""
         imagename=""
@@ -196,7 +219,10 @@ def view_document(request):
             contenttype = ".PDF"
         print("Content type====",contenttype)
         
-        imagename=imagename+contenttype
+        imagename=imagename
+        files = os.listdir("static\\uploads\\")
+        for f in files:
+            os.remove("static\\uploads\\" + f)
         
         file_path="static\\uploads"+"\\"+imagename
         print("Image name=====",imagename)
@@ -207,8 +233,13 @@ def view_document(request):
         data = bytes.fromhex(result) 
         with open(file_path, 'wb') as file: 
             file.write(data)
-            
-        return JsonResponse({"imagepath":file_path})
+        # with open(file_path, 'r',errors='ignore') as file: 
+        #     file_data=file.read()
+        img = open(file_path, 'rb')
+        response = FileResponse(img,as_attachment=False)
+        response['Content-Disposition'] = 'inline; filename='+imagename
+        return response
+        # return render(request,"webpages/docs.html",{"imagepath":imagename})
     else:
         return redirect('/login')
 def logout(request):
@@ -219,6 +250,82 @@ def logout(request):
         print("Exception")
    
     return redirect('login/')
+def case_file_upload(request):
+    if 'UserID' in request.session:
+        detailid=request.POST.get('detailid')
+        caseid=request.POST.get('caseid')
+        print("Datas=====",detailid,caseid)
+        # summary=TblCasesummary.objects.get(casedetailid=detailid)
+        detail=TblCasedetails.objects.get(caseid=caseid)
+        print("Detail======")
+        detailid=detail.casedetailid
+        print("Detailid===",detailid)
+        docfile=request.FILES.get("docfile",None)
+        if docfile:
+            imagedata=None
+            extension1 = os.path.splitext(str(docfile))[1]
+            imagename=os.path.splitext(str(docfile))[0]
+            print("Image name===",imagename)
+            fullname=imagename+extension1
+            print("Fullname==",fullname)
+            contenttype=""
+            file_path="static\\uploads\\"
+                # file_path=os.path.join(UPLOAD_ROOT,accno)
+            print("File existance======",file_path,os.path.isfile(file_path))
+            if os.path.isfile(file_path):
+                os.mkdir(file_path)
+            fullpath=str(caseid)+extension1
+            print("Full path====",fullpath)
+            fullfilepath=os.path.join(file_path,fullpath)
+            print("File",fullfilepath)
+            with open(fullfilepath, 'wb+') as destination:
+                for chunk in docfile.chunks():
+                    imagedata=chunk
+            
+            if(extension1==".doc"):
+                contenttype = "application/vnd.ms-word"
+            if(extension1== ".docx"):
+                contenttype = "application/vnd.ms-word"
+            if(extension1==".xls"):
+                contenttype = "application/vnd.ms-excel"
+            if(extension1==".csv"):
+                contenttype = "application/vnd.ms-excel"
+            if(extension1==".xlsx"):
+                contenttype = "application/vnd.ms-excel"
+            if(extension1==".jpg"):
+                contenttype = "image/jpg"
+            if(extension1==".JPG"):
+                contenttype = "image/jpg"
+            if(extension1==".JPEG"):
+                contenttype = "image/jpg"
+            if(extension1==".jpeg"):
+                contenttype = "image/jpg"
+            if(extension1==".png"):
+                contenttype = "image/png"
+            if(extension1==".PNG"):
+                contenttype = "image/png"
+            if(extension1==".gif"):
+                contenttype = "image/gif"
+            if(extension1==".GIF"):
+                contenttype = "image/gif"
+            if(extension1==".bmp"):
+                contenttype = "image/bmp"
+            if(extension1==".BMP"):
+                contenttype = "image/bmp"
+            if(extension1== ".pdf"):
+                contenttype = "application/pdf"
+            if(extension1==".PDF"):
+                contenttype = "application/pdf"
+            
+            print("Type odf imagedata===",type(imagedata))
+            regdate =datetime.now()
+            docs=TblDocuments(caseid=caseid,casedetailid=detailid,casesummaryid=0,documentdata=imagedata,documentname=fullname,doctype=contenttype,uploadeddate=regdate)
+            docs.save()
+    
+        return JsonResponse({"message":"success"})
+    else:
+        return redirect('/login')
+
 def viewall_users(request):
     users=TblUser.objects.all()
     company=TblCompany.objects.all()

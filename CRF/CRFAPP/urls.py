@@ -14,6 +14,7 @@ urlpatterns=[
      path('StatusUpdate',status_update,name="StatusUpdate"),
      path('ReassignTask',reassign_task,name="ReassignTask"),
      path('ViewDoc',view_document,name="ViewDoc"),
+     path('DocUpload',case_file_upload,name="DocUpload"),
      path('CaseDetailUpdate',detail_status_update,name="CaseDetailUpdate")
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

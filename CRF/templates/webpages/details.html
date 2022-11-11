@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Trust Capital CRM</title>
+    <title>Trust Capital</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -157,7 +157,24 @@
                                                                             <td>{{detail.regdate|date:"Y-m-d"}}</td>
                                                                             <td>{{detail.userid}}</td>
                                                                             <td>{{detail.status}}</td>
-                                                                            <td>{{detail.priority}}</td>
+                                                                          
+                                                                      
+                                                                            <td>
+                                                                                {% if detail.priority == 'High' %}
+                                                                                <button class="btn  btn-sm  text-danger fs-15" style="background-color:
+                                                                                rgba(255, 3, 3, 0.15) ;">{{detail.priority}}</button>
+                                                            {% elif detail.priority == 'Low'%}
+                                                            <button class="btn  btn-sm  color-green fs-15" style="background-color:
+                                            rgba(0, 165, 79, 0.15) ;">
+                                                            {{detail.priority}}
+                                                            </button>
+                                                            {% else %}
+                                                            <button class="btn  btn-sm  text-warning fs-15" style="background-color:
+                                                rgba(221, 174, 6, 0.15) ;">
+                                                                                {{detail.priority}}
+                                                                            </button>
+                                                                            {%endif%}
+                                                                            </td>
                                                                             
                                                                             
                                                                             <td>
@@ -167,7 +184,7 @@
                                                                                 </a>
                                                                                     <div class='dropdown-menu' style='cursor:pointer'>
                                                                                         <a class='dropdown-item' onclick="editStatus({{detail.casedetailid}})">Edit Status</a>
-                                                                                        <a class='dropdown-item' >
+                                                                                        <a class='dropdown-item' onclick="docupload('{{detail.casedetailid}}','{{detail.caseid}}')">
                                                                                         Upload Doc</a>
                                                                                     </div>
                                                                                 </div>
@@ -198,12 +215,12 @@
                                                         <div class="table-responsive "   data-simplebar="init" >
         
                                                 
-                                                            <table  class="table dt-responsive  nowrap  w-100 change" id="datatable">
+                                                            <table  class="table dt-responsive  nowrap  w-100 change" id="datatable2">
                                                                 <thead class="color-color1">
                                                                     <tr  class=" gilorymedium-type fs-17">
                                                                         <!-- <th  class="ps-0"> View</th> -->
                                                                         <th >Document Name</th>
-                                                                        <th  >Document Type</th>
+                                                                        <!-- <th  >Document Type</th> -->
                                                                         <th  >Uploaded Date</th>
                                                                     
                                                                         <!-- <th>Priority</th>
@@ -227,7 +244,7 @@
                                                                 
                                                                         <!-- <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td> -->
                                                                         <td>{{doc.documentname}}</td>
-                                                                        <td>{{doc.doctype}}</td>   
+                                                                        <!-- <td>{{doc.doctype}}</td>    -->
                                                                         <td>{{doc.uploadeddate|date:"Y-m-d"}}</td>
                                                                         <td><a class="color-green text-decoration-underline" style="cursor: pointer;" onclick="viewDocs({{doc.id}})">View</a></td>
                                                                     </tr>
@@ -360,7 +377,7 @@
                                                         </div>
                                                         <form class="needs-validation pt-3" novalidate="" id="action-call">
                                                             <div class="row">
-                                                                <iframe id="image" style="width: 100%;height: 50vh; "></iframe>
+                                                                <embed id="image" style="width: 100%;height: 50vh; "></embed>
     
     
                                                             </div>
@@ -489,6 +506,77 @@
 
         </div><!-- /.modal-dialog -->
     </div>
+    <div class="modal fade  bs-example-modal-document" tabindex="-1" role="dialog" aria-hidden="true" id="upload-model">
+                                                        
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+
+
+
+                <div class="modal-body ">
+
+
+                    <div class="  px-3 border rounded-3">
+
+                        <div class="modal-header border-0 px-0">
+                            <h5 class="modal-title fs-21 ">Upload document </h5>
+
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+
+                                </a>
+                        </div>
+                        <form class="needs-validation pt-3" novalidate="" id="image-upload-save" enctype="multipart/form-data">
+                            <div class="row">
+
+
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <input type="hidden" name="detailid" id="detailid-upload">
+                                        <input type="hidden" name="caseid" id="caseid-upload">
+                                        <label class="form-label " for="Choosefile">Choosefile<span class="color-orange">*</span></label>
+                                        
+                                        <div class="form-control  d-flex justify-content-between position-relative align-items-center"  id="choosefilefield" style="height: 41px;">
+                                            <input  type="file" class="form-control position-absolute" id="choosefile" placeholder="" required  style="top:0;left:0; right:0; opacity: 0; z-index: 1258;" name="docfile">
+                                            <span id="choosetext" class="fs-10"></span>
+                                            <svg  width="14" height="19" viewBox="0 0 14 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6.97494 9V11.9167C6.97494 13.525 8.28327 14.8333 9.8916 14.8333C11.4999 14.8333 12.8083 13.525 12.8083 11.9167V7.33333C12.8083 4.10833 10.1999 1.5 6.97494 1.5C3.74994 1.5 1.1416 4.10833 1.1416 7.33333V12.3333C1.1416 15.0917 3.38327 17.3333 6.1416 17.3333" stroke="#73759D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                    
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary btn-lg my-3 " type="button" onclick="uploadSave()">Save</button>
+
+                                    </div>
+
+
+
+
+
+
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div><!-- /.modal-content -->
+
+
+
+            </div>
+
+
+        </div><!-- /.modal-dialog -->
+    </div>
     <script>
         function editStatus(detailid){
         console.log("Case id==="+detailid)
@@ -498,33 +586,65 @@
         function viewDocs(docId)
         {
         console.log("Document Id==="+docId)
+        var url="{% url 'CRFAPP:ViewDoc'%}"+"?&id="+docId
+        window.open(url,"_blank")
         
+        // $.ajax({
+                        
+        //                 type : "GET", 
+                        
+        //                 url: "{% url 'CRFAPP:ViewDoc' %}",
+                       
+        //                 data:{
+        //                     "id":docId,
+                            
+                            
+        //                 },
+        //                 success: function(data){
+        //                 imagepath=data.imagepath
+        //                 console.log("Image path====="+imagepath)
+        //                 let image = document.getElementById("image");
+ 
+        //                  image.src =imagepath
+        //                 $("#image-modal").modal('show')
+                        
+        //                 }
+        //             })
+    }
+    function docupload(detailid,caseid){
+        $("#caseid-upload").val(caseid)
+        $("#detailid-upload").val(detailid)
+        $("#upload-model").modal('show')
+    }
+    function uploadSave(){
+        $("#upload-model").modal('hide')
+        var form = $('#image-upload-save')[0]
+        var formData = new FormData(form)
+        let csrftoken = '{{ csrf_token }}'
         $.ajax({
                         
-                        type : "GET", 
-                        
-                        url: "{% url 'CRFAPP:ViewDoc' %}",
-                       
-                        data:{
-                            "id":docId,
-                            
-                            
-                        },
+                        type : "POST", 
+                        headers:{'X-CSRFToken':csrftoken},
+                        url: "{% url 'CRFAPP:DocUpload' %}",
+                        async: false,
+                        cache: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        data:formData,
                         success: function(data){
-                        imagepath=data.imagepath
-                        console.log("Image path====="+imagepath)
-                        let image = document.getElementById("image");
- 
-                         image.src =imagepath
-                        $("#image-modal").modal('show')
-                        // $("#userMsg").empty()
-                        // $("#userMsg").append(data.message)
-                        // $("#alertpopup").modal('show')
+                           
+                            $("#userMsg").empty()
+                            $("#userMsg").append("Document Uploaded Successfully")
+                            $("#alertpopup").modal('show')
+                            location.reload()
                         }
-                    })
+            })
+        
+
     }
     
-        function statusUpdate(){
+    function statusUpdate(){
         $("#edit-status").modal('hide')
         var caseid=$("#detailCaseId").val()
         var status=$("#status-update").val()
@@ -558,7 +678,7 @@
     <script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
     <script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
     <!-- Datatable init js -->
-    <script src="{% static 'js/pages/crf/crfdetails2.init.js' %}"></script> 
+    <script src="{% static 'js/crfdetails2.init.js' %}"></script> 
     
     <script src="{% static 'js/app.js' %}"></script>
 
