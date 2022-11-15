@@ -215,15 +215,23 @@
                                                                             <div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                                                                                 <i class='bx bx-dots-vertical-rounded'></i></a>
                                                                                 <div class='dropdown-menu' style='cursor:pointer'>
-                                                                                    <a class='dropdown-item' onclick="loadMoreDeatails({{case.caseid}})">View More</a><a class='dropdown-item' onclick="editStatus({{case.caseid}})">
+                                                                                    {%if request.session.MemberType == "ADMIN"  %}
+                                                                                    <a class='dropdown-item' onclick="loadMoreDeatails({{case.caseid}})">View More</a>
+                                                                                    <a class='dropdown-item' onclick="">Approve</a>
+                                                                                    <a class='dropdown-item' onclick="">Reject</a>
+                                                                                    {%else%} 
+                                                                                    <a class='dropdown-item' onclick="loadMoreDeatails({{case.caseid}})">View More</a>
+                                                                                    {%if case.status != "Management Approval Pending" %}
+                                                                                    <a class='dropdown-item' onclick="editStatus({{case.caseid}})">
                                                                                     Edit Status</a>
-                                                                                    {%if request.session.MemberType != "ASSIGNEE" %}
+                                                                                   
                                                                                     <a class='dropdown-item' onclick="reassign({{case.caseid}})">Reassign</a>
                                                                                     
                                                                                     {%endif%} 
+                                                                                    {%endif%} 
                                                                                 </div>
                                                                             </div>
-                                                                                </td>
+                                                                        </td>
 
                                                                      
                                                                         <!-- <td>{{case.assignedto}}</td>
@@ -553,6 +561,12 @@
     function reassign(caseid){
         $("#reassigntaskId").val(caseid)
         $("#reassign-model").modal('show')
+    }
+    function approveTask(caseid){
+
+    }
+    function rejectTask(caseid){
+        
     }
     function statusUpdate(){
         $("#edit-status").modal('hide')

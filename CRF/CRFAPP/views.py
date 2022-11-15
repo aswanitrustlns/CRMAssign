@@ -1,9 +1,14 @@
-from django.shortcuts import render,redirect
-from .models import TblUser,TblCompany,TblPriority,TblCases,TblCasedetails,TblDocuments,TblCasesummary
-from django.contrib.sessions.models import Session
-from django.http import HttpResponse, JsonResponse,FileResponse
-from datetime import datetime,timedelta,date
 import os
+from datetime import date, datetime, timedelta
+
+from django.contrib.sessions.models import Session
+from django.http import FileResponse, HttpResponse, JsonResponse
+from django.shortcuts import redirect, render
+
+from .models import (TblCasedetails, TblCases, TblCasesummary, TblCompany,
+                     TblDocuments, TblPriority, TblUser)
+
+
 # Create your views here.
 def login(request):
     
@@ -40,11 +45,16 @@ def login_check(request):
 def dashboard(request):
     if 'UserID' in request.session:
         userid=request.session.get('UserID')
-        pending=TblCases.objects.filter(status="Pending",assignedto=userid).count()
-        completed=TblCases.objects.filter(status="Completed",assignedto=userid).count()
-        reopen=TblCases.objects.filter(status="ReOpen",assignedto=userid).count()
-        total=TblCases.objects.filter(assignedto=userid).count()
-        return render(request,'webpages/dashboard.html',{'pending':pending,'completed':completed,'reopen':reopen,'total':total})
+        membertype=request.session.get('MemberType')
+        if membertype=="ADMIN":
+            approvalpending=TblCases.objects.filter(status="Management Approval Pending").count()
+            return render(request,'webpages/admindashboard.html',{'pending':approvalpending})
+        else:
+            pending=TblCases.objects.filter(status="Pending",assignedto=userid).count()
+            completed=TblCases.objects.filter(status="Completed",assignedto=userid).count()
+            reopen=TblCases.objects.filter(status="ReOpen",assignedto=userid).count()
+            total=TblCases.objects.filter(assignedto=userid).count()
+            return render(request,'webpages/dashboard.html',{'pending':pending,'completed':completed,'reopen':reopen,'total':total})
     else:
         return render(request,'webpages/login.html')
 def view_tasks(request):
@@ -60,20 +70,20 @@ def view_tasks(request):
         print("From date To date=====",fromdate,todate,userid)
         if(status!=None):
                 print("Status not none")
-                if(membertype=="SUPER USER" or membertype=="ADMIN"):
+                if(membertype=="SUPER USER"):
                     cases=TblCases.objects.filter(status=status)
                 else:
                     cases=TblCases.objects.filter(status=status,assignedto=userid)
                 
         if(((fromdate!=None and todate!=None) ) and status==None ):
             print("From")
-            if(membertype=="SUPER USER" or membertype=="ADMIN"):
+            if(membertype=="SUPER USER" ):
                     cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate)
             else:
                     cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate,assignedto=userid)
             
         if(fromdate==None and todate==None and status==None):
-            if(membertype=="SUPER USER" or membertype=="ADMIN"):
+            if(membertype=="SUPER USER" ):
                 cases=TblCases.objects.all() 
             else:
                 cases=TblCases.objects.filter(assignedto=userid) 
@@ -86,7 +96,7 @@ def view_tasks(request):
 def detailed_page(request):
     if 'UserID' in request.session:
         case=request.GET.get('Case')
-        print("Case details===="+case)
+        print("Case details===="+case) 
         casedetails=TblCasedetails.objects.filter(caseid=case)
         docdetails=TblDocuments.objects.filter(caseid=case)
         activities=[]
