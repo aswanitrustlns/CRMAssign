@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Trust Capital</title>
+    <title>Trust LNS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -183,10 +183,16 @@
                                                                                     <i class='bx bx-dots-vertical-rounded'></i>
                                                                                 </a>
                                                                                     <div class='dropdown-menu' style='cursor:pointer'>
+                                                                                        {%if request.session.MemberType == "ADMIN"  %}
+                                                                                        <a class='dropdown-item' onclick="editStatus({{detail.casedetailid}})">Approve</a>
+                                                                                        <a class='dropdown-item' onclick="editStatus({{detail.casedetailid}})">Reject</a>
+                                                                                        
+                                                                                        {%else%}
                                                                                         <a class='dropdown-item' onclick="editStatus({{detail.casedetailid}})">Edit Status</a>
                                                                                         <a class='dropdown-item' onclick="reassign({{detail.casedetailid}})">Reassign</a>
                                                                                         <a class='dropdown-item' onclick="docupload('{{detail.casedetailid}}','{{detail.caseid}}')">
                                                                                         Upload Doc</a>
+                                                                                        {%endif%} 
                                                                                     </div>
                                                                                 </div>
                                                                             </td>

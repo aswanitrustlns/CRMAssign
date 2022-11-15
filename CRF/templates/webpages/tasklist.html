@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Trust Capital CRM</title>
+    <title>Trust LNS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -217,17 +217,19 @@
                                                                                 <div class='dropdown-menu' style='cursor:pointer'>
                                                                                     {%if request.session.MemberType == "ADMIN"  %}
                                                                                     <a class='dropdown-item' onclick="loadMoreDeatails({{case.caseid}})">View More</a>
-                                                                                    <a class='dropdown-item' onclick="">Approve</a>
-                                                                                    <a class='dropdown-item' onclick="">Reject</a>
+                                                                                    <a class='dropdown-item' onclick="approveTask({{case.caseid}})">Approve</a>
+                                                                                    <a class='dropdown-item' onclick="rejectTask({{case.caseid}})">Reject</a>
+                                                                                    <a class='dropdown-item' onclick="">Verify</a>
                                                                                     {%else%} 
                                                                                     <a class='dropdown-item' onclick="loadMoreDeatails({{case.caseid}})">View More</a>
-                                                                                    {%if case.status != "Management Approval Pending" %}
+                                                                                    {%if case.status != "Management Approval Pending" and  case.status != "Manager Rejected" %}
                                                                                     <a class='dropdown-item' onclick="editStatus({{case.caseid}})">
                                                                                     Edit Status</a>
                                                                                    
                                                                                     <a class='dropdown-item' onclick="reassign({{case.caseid}})">Reassign</a>
                                                                                     
                                                                                     {%endif%} 
+                                                                                    
                                                                                     {%endif%} 
                                                                                 </div>
                                                                             </div>
@@ -321,6 +323,7 @@
                                                                             <option value="Followup">Followup</option>
                                                                             <option value="ReOpen">ReOpen</option>
                                                                             <option value="Pending">Pending</option>
+                                                                            <option value="Verification Pending">Submit For Verification</option>
                                                                             <option value="Management Approval Pending">Management Approval Pending</option>
                                                                         </select>
                                                                         
@@ -353,7 +356,133 @@
     
                                         </div><!-- /.modal-dialog -->
                                     </div>
-                      
+                                    <div class="modal fade  bs-example-modal-show" tabindex="-1" role="dialog" aria-hidden="true" id="approve-model">
+                                                            
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content ">
+    
+    
+    
+                                                <div class="modal-body ">
+    
+    
+                                                    <div class="  px-0  ">
+    
+                                                        <div class="modal-header border-0 px-0">
+                                                            <h5 class="modal-title fs-21 ">Approve</h5>
+    
+                                                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    </svg>
+    
+                                                                </a>
+                                                        </div>
+                                                        <form class="needs-validation pt-3" novalidate="" id="action-call">
+                                                            <div class="row">
+    
+    
+                                                                <div class="col-md-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Assigned To</label>
+                                                                        
+                                                                        <select class="form-select" id="assignto-employee">
+                                                                            <option value="0">Select</option>
+                                                                            {%for assign in assignto %}
+                                                                            <option value="{{assign.userid}}">{{assign.name}}</option>
+                                                                            {%endfor%}
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" >Description</label>
+                                                                        
+                                                                        <textarea name="description" id="approve-description" class="form-control"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="reassigntask" id="approvetaskId">
+                                                                <div class="col-md-12">
+                                                                    <button class="btn btn-primary btn-lg my-3 " type="button" onclick="approvedTask()">Approve</button>
+                                                                </div>
+    
+                                                            </div>
+    
+    
+                                                        </form>
+    
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+    
+    
+    
+                                            </div>
+    
+    
+                                        </div><!-- /.modal-dialog -->
+                                    </div>
+                                    <div class="modal fade  bs-example-modal-show" tabindex="-1" role="dialog" aria-hidden="true" id="reject-model">
+                                                            
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content ">
+    
+    
+    
+                                                <div class="modal-body ">
+    
+    
+                                                    <div class="  px-0  ">
+    
+                                                        <div class="modal-header border-0 px-0">
+                                                            <h5 class="modal-title fs-21 ">Reject</h5>
+    
+                                                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                    </svg>
+    
+                                                                </a>
+                                                        </div>
+                                                        <form class="needs-validation pt-3" novalidate="" id="action-call">
+                                                            <div class="row">
+    
+    
+                                                                
+                                                                
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" >Reject Reason</label>
+                                                                        
+                                                                        <textarea name="description" id="reject-description" class="form-control"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="reassigntask" id="rejecttaskId">
+                                                                <div class="col-md-12">
+                                                                    <button class="btn btn-primary btn-lg my-3 " type="button" onclick="rejectedTask()">Reject</button>
+                                                                </div>
+    
+                                                            </div>
+    
+    
+                                                        </form>
+    
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+    
+    
+    
+                                            </div>
+    
+    
+                                        </div><!-- /.modal-dialog -->
+                                    </div>
                 </div>
                 <!-- End Page-content -->
                 
@@ -431,6 +560,10 @@
                                             <option value="Followup">Followup</option>
                                             <option value="ReOpen">ReOpen</option>
                                             <option value="Pending">Pending</option>
+                                            {%if request.session.MemberType == "ADMIN"  or request.session.MemberType == "SUPER USER" %}
+                                            <option value="Resolved">Resolved</option>
+                                            {%endif%} 
+                                            
                                             <option value="Management Approval Pending">Management Approval Pending</option>
                                         </select>
                                         
@@ -562,11 +695,62 @@
         $("#reassigntaskId").val(caseid)
         $("#reassign-model").modal('show')
     }
+
     function approveTask(caseid){
+       $("#approvetaskId").val(caseid)
+       $("#approve-model").modal('show')
+    }
+    function approvedTask(){
+        var caseId=$("#approvetaskId").val()
+        var description=$("#approve-description").val()
+        $("#approve-model").modal('hide')
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'CRFAPP:StatusUpdate' %}",
+                    dataType: 'json',
+                    data:{
+                        'id':caseId,
+                        'description':description,
+                        'status':"Manager Approved"
+                    },
+                    success: function(data){
+                        $("#userMsg").empty()
+                            $("#userMsg").append("Task Approved Successfully")
+                            $("#alertpopup").modal('show')
+                        var url="{% url 'CRFAPP:viewTask'%}"
+                        window.location.href=url
+                    }
+                })
 
     }
     function rejectTask(caseid){
-        
+        $("#rejecttaskId").val(caseid)
+        $("#reject-model").modal('show')
+    }
+    function rejectedTask(){
+        $("#reject-model").modal('hide')
+        var caseId=$("#rejecttaskId").val()
+        var description=$("#reject-description").val()
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'CRFAPP:StatusUpdate' %}",
+                    dataType: 'json',
+                    data:{
+                        'id':caseId,
+                        'description':description,
+                        'status':"Manager Rejected"
+                    },
+                    success: function(data){
+                        $("#userMsg").empty()
+                            $("#userMsg").append("Task Rejected")
+                            $("#alertpopup").modal('show')
+                        var url="{% url 'CRFAPP:viewTask'%}"
+                        window.location.href=url
+                    }
+                })
+   
     }
     function statusUpdate(){
         $("#edit-status").modal('hide')

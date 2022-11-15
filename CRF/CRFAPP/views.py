@@ -67,6 +67,7 @@ def view_tasks(request):
         membertype=request.session.get('MemberType')
         priority=TblPriority.objects.all()
         employees=TblUser.objects.exclude(userid=userid).filter(membertype__in=["SUPER USER","ADMIN","ASSIGNEE"])
+        assignto=TblUser.objects.filter(membertype="SUPER USER")
         print("From date To date=====",fromdate,todate,userid)
         if(status!=None):
                 print("Status not none")
@@ -87,7 +88,7 @@ def view_tasks(request):
                 cases=TblCases.objects.all() 
             else:
                 cases=TblCases.objects.filter(assignedto=userid) 
-        return render(request,'webpages/tasklist.html',{'cases':cases,'priority':priority,'employees':employees})
+        return render(request,'webpages/tasklist.html',{'cases':cases,'priority':priority,'employees':employees,'assignto':assignto})
         # print("Cases====",list(cases))
         # return JsonResponse(cases,safe=False)
     else:
