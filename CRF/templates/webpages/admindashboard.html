@@ -85,7 +85,7 @@
     
     
                                                 </div>
-                                                <a href="{% url 'CRFAPP:viewTask'%}?&status=Pending">
+                                                <a href="{% url 'CRFAPP:viewTask'%}?&status=Manager Approved">
                                                 <div class="flex-grow-1 ms-2">
     
     
@@ -95,7 +95,7 @@
                                                         <span class="ms-1 text-muted fs-13 gilroysemibold-type">Approved Tasks</span>
                                                     </div>
                                                     <h4 class="mb-1">
-                                                        <span class="counter-value gilroysemibold-type" data-target={{pending}}>{{pending}}</span>
+                                                        <span class="counter-value gilroysemibold-type" data-target={{approved}}>{{approved}}</span>
                                                     </h4>
                                                 </div>
                                             </a>
@@ -128,7 +128,7 @@
     
     
                                                 </div>
-                                                <a href="{% url 'CRFAPP:viewTask'%}?&status=Completed">
+                                                <a href="{% url 'CRFAPP:viewTask'%}?&status=Manager Rejected">
     
                                                 <div class="flex-grow-1 ms-2">
     
@@ -139,7 +139,7 @@
                                                         <span class="ms-1 text-muted fs-13 gilroysemibold-type">Rejected Tasks</span>
                                                     </div>
                                                     <h4 class="mb-1">
-                                                        <span class="counter-value gilroysemibold-type" data-target={{completed}}>{{completed}}</span>
+                                                        <span class="counter-value gilroysemibold-type" data-target={{rejected}}>{{rejected}}</span>
                                                     </h4>
                                                 </div>
                                             </a>
@@ -182,7 +182,7 @@
     
                                                     <div class="text-nowrap">
                                                         
-                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Approval Pending Tasks</span>
+                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Approval Waiting Tasks</span>
                                                     </div>
                                                     <h4 class="mb-1">
                                                         <span class="counter-value gilroysemibold-type" data-target={{pending}}>{{pending}}</span>
@@ -214,17 +214,17 @@
     
     
                                                 </div>
-                                                <a href="{% url 'CRFAPP:viewTask'%}">
+                                                <a href="{% url 'CRFAPP:viewTask'%}?&status=Verification Pending">
                                                 <div class="flex-grow-1 ms-2">
     
     
     
                                                     <div class="text-nowrap">
                                                         <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Verification Pending Tasks</span>
+                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Verification Waiting Tasks</span>
                                                     </div>
                                                     <h4 class="mb-1">
-                                                        <span class="counter-value gilroysemibold-type" data-target={{total}}>{{total}}</span>
+                                                        <span class="counter-value gilroysemibold-type" data-target={{verification}}>{{verification}}</span>
                                                     </h4>
                                                 </div>
                                             </a>

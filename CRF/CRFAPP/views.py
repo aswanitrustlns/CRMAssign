@@ -29,9 +29,10 @@ def login_check(request):
             print("User details=====",user_details.userid)
             request.session['UserID']=user_details.userid
             request.session['UserName']=user_details.username
-            request.session['Email']=user_details.designationid
+            request.session['Email']=user_details.email
             request.session['CompanyID']=user_details.companyid
             request.session['Name']=user_details.name
+            request.session['Designation']=user_details.designationid
             request.session['MemberType']=user_details.membertype
             return redirect('dashboard/')
             
@@ -46,15 +47,28 @@ def dashboard(request):
     if 'UserID' in request.session:
         userid=request.session.get('UserID')
         membertype=request.session.get('MemberType')
+        department=request.session.get('Designation')
+        print("Department======",department)
         if membertype=="ADMIN":
+            approved=TblCases.objects.filter(status="Manager Approved").count()
+            rejected=TblCases.objects.filter(status="Manager Rejected").count()
+            allcases=TblCasedetails.objects.filter(status="Verification Pending")
+            verification=TblCases.objects.filter(caseid__in=allcases.values_list('caseid',flat=True)).count()
+            
+            # detailverification=TblCasedetails.objects.filter(status="Verification Pending",userid=userid).count()
+            # totalverification=verification+detailverification
             approvalpending=TblCases.objects.filter(status="Management Approval Pending").count()
-            return render(request,'webpages/admindashboard.html',{'pending':approvalpending})
+            return render(request,'webpages/admindashboard.html',{'pending':approvalpending,'approved':approved,'rejected':rejected,'verification':verification})
         else:
             pending=TblCases.objects.filter(status="Pending",assignedto=userid).count()
             completed=TblCases.objects.filter(status="Completed",assignedto=userid).count()
             reopen=TblCases.objects.filter(status="ReOpen",assignedto=userid).count()
             total=TblCases.objects.filter(assignedto=userid).count()
-            return render(request,'webpages/dashboard.html',{'pending':pending,'completed':completed,'reopen':reopen,'total':total})
+            approvalpending=TblCases.objects.filter(status="Management Approval Pending",assignedto=userid).count()
+            verification=TblCases.objects.filter(status="Verification Pending",assignedto=userid).count()
+            manager_approved=TblCases.objects.filter(status="Manager Approved",assignedto=userid).count()
+            resolved=TblCases.objects.filter(status="Resolved",assigneddpt=department).count()
+            return render(request,'webpages/dashboard.html',{'pending':pending,'completed':completed,'reopen':reopen,'total':total,'approval':approvalpending,'verification':verification,'manager_approved':manager_approved,'resolved':resolved})
     else:
         return render(request,'webpages/login.html')
 def view_tasks(request):
@@ -65,27 +79,37 @@ def view_tasks(request):
         print("Status=====",status)
         userid=request.session.get('UserID')
         membertype=request.session.get('MemberType')
+        department=request.session.get('Designation')
         priority=TblPriority.objects.all()
         employees=TblUser.objects.exclude(userid=userid).filter(membertype__in=["SUPER USER","ADMIN","ASSIGNEE"])
         assignto=TblUser.objects.filter(membertype="SUPER USER")
         print("From date To date=====",fromdate,todate,userid)
         if(status!=None):
                 print("Status not none")
-                if(membertype=="SUPER USER"):
-                    cases=TblCases.objects.filter(status=status)
+                if status=="Resolved":
+                    cases=TblCases.objects.filter(status="Resolved",assigneddpt=department)
                 else:
-                    cases=TblCases.objects.filter(status=status,assignedto=userid)
+                    if(membertype=="SUPER USER"):
+                        cases=TblCases.objects.filter(status=status,assignedto=userid)
+                    if(membertype=="ADMIN"):
+                        if status=="Verification Pending":
+                            allcases=TblCasedetails.objects.filter(status="Verification Pending")
+                            cases=TblCases.objects.filter(caseid__in=allcases.values_list('caseid',flat=True))
+                        else:
+                            cases=TblCases.objects.filter(status=status,assignedto=userid)
+                    else:
+                        cases=TblCases.objects.filter(status=status,assignedto=userid)
                 
         if(((fromdate!=None and todate!=None) ) and status==None ):
             print("From")
-            if(membertype=="SUPER USER" ):
-                    cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate)
+            if(membertype=="SUPER USER" or membertype=="ADMIN"):
+                    cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate,assignedto=userid)
             else:
                     cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate,assignedto=userid)
             
         if(fromdate==None and todate==None and status==None):
-            if(membertype=="SUPER USER" ):
-                cases=TblCases.objects.all() 
+            if(membertype=="SUPER USER" or membertype=="ADMIN"):
+                cases=TblCases.objects.filter(assignedto=userid) 
             else:
                 cases=TblCases.objects.filter(assignedto=userid) 
         return render(request,'webpages/tasklist.html',{'cases':cases,'priority':priority,'employees':employees,'assignto':assignto})
@@ -98,8 +122,12 @@ def detailed_page(request):
     if 'UserID' in request.session:
         case=request.GET.get('Case')
         print("Case details===="+case) 
+        assignto=TblUser.objects.filter(membertype="SUPER USER")
         casedetails=TblCasedetails.objects.filter(caseid=case)
         docdetails=TblDocuments.objects.filter(caseid=case)
+        priority=TblPriority.objects.all()
+        userid=request.session.get('UserID')
+        employees=TblUser.objects.exclude(userid=userid).filter(membertype__in=["SUPER USER","ADMIN","ASSIGNEE"])
         activities=[]
         for details in casedetails:
             print("Case detail Id====",details.casedetailid)
@@ -107,7 +135,7 @@ def detailed_page(request):
             print("Activity======",activity)
             activities.append(activity)
         print("Activities====",activities)
-        return render(request,'webpages/details.html',{"details":casedetails,"docs":docdetails,"activities":activities})
+        return render(request,'webpages/details.html',{"details":casedetails,"docs":docdetails,"activities":activities,"assignto":assignto,'priority':priority,'employees':employees})
     else:
         return redirect('/login')
 
@@ -180,6 +208,83 @@ def reassign_task(request):
         return JsonResponse({"message":"success"})
     else:
         return redirect('/login')
+def reassign_detailed_task(request):
+    if 'UserID' in request.session:
+        case_detail_id=request.GET.get('id')
+        status=request.GET.get('status')
+        description=request.GET.get('description')
+        priority=request.GET.get('priority')
+        assignto=request.GET.get('assignto')
+        print("Deatails====",case_detail_id,status,description,assignto)
+        reassign=TblUser()
+        priorityTbl=TblPriority()
+        reassign.userid=assignto
+        priorityTbl.id=priority
+        print("Deatails====",case_detail_id,status,description,priority)
+        case_detail=TblCasedetails.objects.get(casedetailid=case_detail_id)
+        
+
+        case_detail.status=status
+        case_detail.userid=reassign
+        if(description!=""):
+            case_detail.description=description
+        case_detail.priority=priorityTbl
+        case_detail.save()
+        modified=datetime.now()
+        case_detail.modified=modified
+        case_detail.save()
+        print("Case====",case_detail)
+        return JsonResponse({"message":"success"})
+    else:
+        return redirect('/login')
+def manager_casedetail_funs(request):
+    if 'UserID' in request.session:
+        case_detail_id=request.GET.get('id')
+        description=request.GET.get('description')
+        assignto=request.GET.get('assignto')
+        print("Deatails====",case_detail_id,assignto)
+        reassign=TblUser()
+        
+        reassign.userid=assignto
+       
+        case_detail=TblCasedetails.objects.get(casedetailid=case_detail_id)
+
+        
+        case_detail.userid=reassign
+        if(description!=""):
+            case_detail.description=description
+        
+        case_detail.save()
+        modified=datetime.now()
+        case_detail.modified=modified
+        case_detail.save()
+        print("Case====",case_detail)
+        return JsonResponse({"message":"success"})
+    else:
+        return redirect('/login')
+def verification_cases(request):
+    if 'UserID' in request.session:
+        caseid=request.GET.get('id')
+        manager=request.GET.get('manager')
+        crm=request.GET.get('crm')
+        print("Cases========",caseid,manager,crm)
+        modified=datetime.now()
+        case=TblCases.objects.get(caseid=caseid)
+        if crm:
+            user=TblUser()
+            user.userid=case.userid
+            print("crm User id===",case.userid)
+            registerdetail=TblCasedetails(caseid=case.caseid,topic=case.topic,description=case.description,regdate=case.regdate,modified=modified,iscompleted=0,completiondate=None,expcompletion=None,status="Verification Pending",userid=user.userid,priority=case.priority,casetype=case.casetype)
+            registerdetail.save()
+        if manager:
+            admin=TblUser.objects.get(userid=11)
+            print("Usr",type(admin))
+            registerdetail=TblCasedetails(caseid=case.caseid,topic=case.topic,description=case.description,regdate=case.regdate,modified=modified,iscompleted=0,completiondate=None,expcompletion=None,status="Verification Pending",userid=admin,priority=case.priority,casetype=case.casetype)
+            registerdetail.save()
+        return JsonResponse({"message":"success"})
+    else:
+        return redirect('/login')
+
 def view_document(request):
     if 'UserID' in request.session:
         docid=request.GET.get('id')
