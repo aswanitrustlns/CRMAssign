@@ -56,19 +56,40 @@ def dashboard(request):
             # verification=TblCases.objects.filter(caseid__in=allcases.values_list('caseid',flat=True)).count()
             
             verification=TblCases.objects.filter(status="Verification Pending",assignedto=userid).count()
+            pending=TblCases.objects.filter(status="Pending").count()
+            followup=TblCases.objects.filter(status="Followup").count()
+            reopen=TblCases.objects.filter(status="ReOpen").count()
+            total=TblCases.objects.filter().count()
+
             # totalverification=verification+detailverification
             approvalpending=TblCases.objects.filter(status="Management Approval Pending",assignedto=userid).count()
-            return render(request,'webpages/admindashboard.html',{'pending':approvalpending,'approved':approved,'rejected':rejected,'verification':verification})
+            return render(request,'webpages/admindashboard.html',{'pending':approvalpending,'approved':approved,'rejected':rejected,'verification':verification,'pending':pending,'followup':followup,'reopen':reopen,'total':total,})
         else:
             pending=TblCases.objects.filter(status="Pending",assignedto=userid).count()
-            
+            detail_pending=TblCasedetails.objects.filter(status="Pending",userid=userid).count()
+            total_pending=pending+detail_pending
+            followup=TblCases.objects.filter(status="Followup",assignedto=userid).count()
+            detail_followup=TblCasedetails.objects.filter(status="Followup",userid=userid).count()
+            total_followup=followup+detail_followup
             reopen=TblCases.objects.filter(status="ReOpen",assignedto=userid).count()
+            detail_reopen=TblCasedetails.objects.filter(status="ReOpen",userid=userid).count()
+            total_reopen=reopen+detail_reopen
             total=TblCases.objects.filter(assignedto=userid).count()
+            detail_total=TblCasedetails.objects.filter(userid=userid).count()
+            total_total=total+detail_total
             approvalpending=TblCases.objects.filter(status="Management Approval Pending",assignedto=userid).count()
+            detail_approval=TblCasedetails.objects.filter(status="Management Approval Pending",userid=userid).count()
+            total_approval=detail_approval+approvalpending
             verification=TblCases.objects.filter(status="Verification Pending",assignedto=userid).count()
+            detail_verification=TblCasedetails.objects.filter(status="Verification Pending",userid=userid).count()
+            total_verification=detail_verification+verification
             manager_approved=TblCases.objects.filter(status="Manager Approved",assignedto=userid).count()
+            detail_managerapprove=TblCasedetails.objects.filter(status="Manager Approved",userid=userid).count()
+            total_managerapprove=detail_managerapprove+manager_approved
             resolved=TblCases.objects.filter(status="Resolved",assigneddpt=department).count()
-            return render(request,'webpages/dashboard.html',{'pending':pending,'reopen':reopen,'total':total,'approval':approvalpending,'verification':verification,'manager_approved':manager_approved,'resolved':resolved})
+            detail_resolved=TblCasedetails.objects.filter(status="Resolved",userid=userid).count()
+            total_resolve=detail_resolved+resolved
+            return render(request,'webpages/dashboard.html',{'pending':total_pending,'followup':total_followup,'reopen':total_reopen,'total':total_total,'approval':total_approval,'verification':total_verification,'manager_approved':total_managerapprove,'resolved':total_resolve})
     else:
         return render(request,'webpages/login.html')
 def view_tasks(request):
@@ -95,21 +116,23 @@ def view_tasks(request):
                         if status=="Verification Pending":
                             allcases=TblCasedetails.objects.filter(status="Verification Pending")
                             cases=TblCases.objects.filter(caseid__in=allcases.values_list('caseid',flat=True))
-                        else:
+                        if status=="Manager Approved" or status=="Manager Rejected" or status=="Management Approval Pending":
                             cases=TblCases.objects.filter(status=status,assignedto=userid)
+                        else:
+                            cases=TblCases.objects.filter(status=status)
                     else:
                         cases=TblCases.objects.filter(status=status,assignedto=userid)
                 
         if(((fromdate!=None and todate!=None) ) and status==None ):
             print("From")
-            if(membertype=="SUPER USER" or membertype=="ADMIN"):
-                    cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate,assignedto=userid)
+            if(membertype=="ADMIN"):
+                    cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate)
             else:
                     cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate,assignedto=userid)
             
         if(fromdate==None and todate==None and status==None):
-            if(membertype=="SUPER USER" or membertype=="ADMIN"):
-                cases=TblCases.objects.filter(assignedto=userid)
+            if(membertype=="ADMIN"):
+                cases=TblCases.objects.filter()
             else:
                 cases=TblCases.objects.filter(assignedto=userid) 
         print("Type od cases=====",type(cases))
@@ -149,9 +172,6 @@ def status_update(request):
         
         case=TblCases.objects.get(caseid=caseid)
         case.status=status
-        
-        if(description!=""):
-            case.description=description
         case.save()
         modified=datetime.now()
         if status=="Resolved":
@@ -181,8 +201,6 @@ def detail_status_update(request):
         case.save()
         case_detail.status=status
         
-        if(description!=""):
-            case_detail.description=description
         case_detail.save()
 
         modified=datetime.now()
@@ -211,10 +229,9 @@ def reassign_task(request):
         case=TblCases.objects.get(caseid=caseid)
 
         case.status=status
-        case.assignedto=reassign
-        if(description!=""):
-            case.description=description
-        case.priority=priorityTbl
+        # case.assignedto=reassign
+        
+        # case.priority=priorityTbl
         case.save()
         modified=datetime.now()
         registerdetail=TblCasedetails(caseid=case.caseid,topic=case.topic,description=case.description,regdate=case.regdate,modified=modified,iscompleted=0,completiondate=None,expcompletion=None,status=status,userid=case.assignedto,priority=case.priority,casetype=case.casetype)
@@ -247,13 +264,11 @@ def reassign_detailed_task(request):
         case_detail=TblCasedetails.objects.get(casedetailid=case_detail_id)
         case=TblCases.objects.get(caseid=case_detail.caseid)
         case.status=status
-        case.assignedto=reassign 
+        # case.assignedto=reassign 
         case.save()
 
         case_detail.status=status
         case_detail.userid=reassign
-        if(description!=""):
-            case_detail.description=description
         case_detail.priority=priorityTbl
         modified=datetime.now()
         case_detail.modified=modified
@@ -281,9 +296,7 @@ def manager_casedetail_funs(request):
 
         
         case_detail.userid=reassign
-        if(description!=""):
-            case_detail.description=description
-        
+       
         case_detail.save()
         modified=datetime.now()
         case_detail.modified=modified
