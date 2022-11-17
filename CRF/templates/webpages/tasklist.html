@@ -199,7 +199,7 @@
                                                                             {% if case.status == 'Pending' %}
                                                                                 <button class="btn  btn-sm  text-danger fs-15" style="background-color:
                                                                                                 rgba(255, 3, 3, 0.15) ;">{{case.status}}</button>
-                                                                            {% elif case.status == 'Completed'%}
+                                                                            {% elif case.status == 'Resolved'%}
                                                                             <button class="btn  btn-sm  color-green fs-15" style="background-color:
                                                             rgba(0, 165, 79, 0.15) ;">
                                                                             {{case.status}}
@@ -326,9 +326,6 @@
                                                                     <div class="mb-3">
                                                                         <label class="form-label" >Status</label>
                                                                         <select  class="form-select" id="reassign-status"  value="" required name="assignedto">
-                                                                            
-                                                                            <option value="Completed">Completed</option>
-                                                                            
                                                                             <option value="Followup">Followup</option>
                                                                             <option value="ReOpen">ReOpen</option>
                                                                             <option value="Pending">Pending</option>
@@ -565,8 +562,6 @@
                                     <div class="mb-3">
                                         <label class="form-label" >Status</label>
                                         <select  class="form-select" id="status-update"  value="" required name="assignedto">
-                                            
-                                            <option value="Completed">Completed</option>
                                             
                                             <option value="Followup">Followup</option>
                                             <option value="ReOpen">ReOpen</option>
@@ -873,8 +868,8 @@
                     },
                     success: function(data){
                         $("#userMsg").empty()
-                            $("#userMsg").append("Updated Successfully")
-                            $("#alertpopup").modal('show')
+                        $("#userMsg").append("Updated Successfully")
+                        $("#alertpopup").modal('show')
                         var url="{% url 'CRFAPP:viewTask'%}"
                         window.location.href=url
                     }

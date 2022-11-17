@@ -50,25 +50,25 @@ def dashboard(request):
         department=request.session.get('Designation')
         print("Department======",department)
         if membertype=="ADMIN":
-            approved=TblCases.objects.filter(status="Manager Approved").count()
-            rejected=TblCases.objects.filter(status="Manager Rejected").count()
-            allcases=TblCasedetails.objects.filter(status="Verification Pending")
+            approved=TblCases.objects.filter(status="Manager Approved",assignedto=userid).count()
+            rejected=TblCases.objects.filter(status="Manager Rejected",assignedto=userid).count()
+            allcases=TblCasedetails.objects.filter(status="Verification Pending",assignedto=userid)
             verification=TblCases.objects.filter(caseid__in=allcases.values_list('caseid',flat=True)).count()
             
             # detailverification=TblCasedetails.objects.filter(status="Verification Pending",userid=userid).count()
             # totalverification=verification+detailverification
-            approvalpending=TblCases.objects.filter(status="Management Approval Pending").count()
+            approvalpending=TblCases.objects.filter(status="Management Approval Pending",assignedto=userid).count()
             return render(request,'webpages/admindashboard.html',{'pending':approvalpending,'approved':approved,'rejected':rejected,'verification':verification})
         else:
             pending=TblCases.objects.filter(status="Pending",assignedto=userid).count()
-            completed=TblCases.objects.filter(status="Completed",assignedto=userid).count()
+            
             reopen=TblCases.objects.filter(status="ReOpen",assignedto=userid).count()
             total=TblCases.objects.filter(assignedto=userid).count()
             approvalpending=TblCases.objects.filter(status="Management Approval Pending",assignedto=userid).count()
             verification=TblCases.objects.filter(status="Verification Pending",assignedto=userid).count()
             manager_approved=TblCases.objects.filter(status="Manager Approved",assignedto=userid).count()
             resolved=TblCases.objects.filter(status="Resolved",assigneddpt=department).count()
-            return render(request,'webpages/dashboard.html',{'pending':pending,'completed':completed,'reopen':reopen,'total':total,'approval':approvalpending,'verification':verification,'manager_approved':manager_approved,'resolved':resolved})
+            return render(request,'webpages/dashboard.html',{'pending':pending,'reopen':reopen,'total':total,'approval':approvalpending,'verification':verification,'manager_approved':manager_approved,'resolved':resolved})
     else:
         return render(request,'webpages/login.html')
 def view_tasks(request):
@@ -109,9 +109,10 @@ def view_tasks(request):
             
         if(fromdate==None and todate==None and status==None):
             if(membertype=="SUPER USER" or membertype=="ADMIN"):
-                cases=TblCases.objects.filter(assignedto=userid) 
+                cases=TblCases.objects.filter(assignedto=userid)
             else:
                 cases=TblCases.objects.filter(assignedto=userid) 
+        print("Type od cases=====",type(cases))
         return render(request,'webpages/tasklist.html',{'cases':cases,'priority':priority,'employees':employees,'assignto':assignto})
         # print("Cases====",list(cases))
         # return JsonResponse(cases,safe=False)
@@ -127,7 +128,7 @@ def detailed_page(request):
         docdetails=TblDocuments.objects.filter(caseid=case)
         priority=TblPriority.objects.all()
         userid=request.session.get('UserID')
-        employees=TblUser.objects.exclude(userid=userid).filter(membertype__in=["SUPER USER","ADMIN","ASSIGNEE"])
+        employees=TblUser.objects.exclude(userid=userid).filter(membertype__in=["SUPER USER","ADMIN","ASSIGNEE","USER"])
         activities=[]
         for details in casedetails:
             print("Case detail Id====",details.casedetailid)
@@ -152,6 +153,14 @@ def status_update(request):
             case.description=description
         case.save()
         modified=datetime.now()
+        if status=="Resolved":
+            case_detail=TblCasedetails.objects.filter(casedetailid=case.caseid,userid=case.userid,status="Verification Pending")
+            print("case_detail================================",case_detail)
+            if case_detail:
+                status="Verification Pending"
+            else:
+                status="Resolved"
+
         registerdetail=TblCasedetails(caseid=case.caseid,topic=case.topic,description=case.description,regdate=case.regdate,modified=modified,iscompleted=0,completiondate=None,expcompletion=None,status=status,userid=case.assignedto,priority=case.priority,casetype=case.casetype)
         registerdetail.save()
         print("Case====",case)
@@ -163,20 +172,24 @@ def detail_status_update(request):
         caseid=request.GET.get('id')
         status=request.GET.get('status')
         description=request.GET.get('description')
-        
-        case=TblCasedetails.objects.get(casedetailid=caseid)
+       
+        case_detail=TblCasedetails.objects.get(casedetailid=caseid)
+        case=TblCases.objects.get(caseid=case_detail.caseid)
         case.status=status
-        
-        # if(description!=""):
-        #     case.description=description
         case.save()
+        case_detail.status=status
+        
+        if(description!=""):
+            case_detail.description=description
+        case_detail.save()
+
         modified=datetime.now()
         desctime=modified.strftime("%d/%m/%Y %H:%M:%S")
         summaryname=request.session.get('Name')
         summarydesc=summaryname+" on "+desctime+":"+description
         summarydetail=TblCasesummary(casedetailid=caseid,description=summarydesc,regdate=modified,modified=modified)
         summarydetail.save()
-        print("Case====",case)
+       
         return JsonResponse({"message":"success"})
     else:
         return redirect('/login')
@@ -204,6 +217,12 @@ def reassign_task(request):
         modified=datetime.now()
         registerdetail=TblCasedetails(caseid=case.caseid,topic=case.topic,description=case.description,regdate=case.regdate,modified=modified,iscompleted=0,completiondate=None,expcompletion=None,status=status,userid=case.assignedto,priority=case.priority,casetype=case.casetype)
         registerdetail.save()
+        desctime=modified.strftime("%d/%m/%Y %H:%M:%S")
+        summaryname=request.session.get('Name')
+        summarydesc=summaryname+" on "+desctime+":"+description
+      
+        summarydetail=TblCasesummary(casedetailid=caseid,description=summarydesc,regdate=modified,modified=modified)
+        summarydetail.save()
         print("Case====",case)
         return JsonResponse({"message":"success"})
     else:
@@ -216,23 +235,31 @@ def reassign_detailed_task(request):
         priority=request.GET.get('priority')
         assignto=request.GET.get('assignto')
         print("Deatails====",case_detail_id,status,description,assignto)
+        
         reassign=TblUser()
         priorityTbl=TblPriority()
         reassign.userid=assignto
         priorityTbl.id=priority
         print("Deatails====",case_detail_id,status,description,priority)
         case_detail=TblCasedetails.objects.get(casedetailid=case_detail_id)
-        
+        case=TblCases.objects.get(caseid=case_detail.caseid)
+        case.status=status
+        case.assignedto=reassign 
+        case.save()
 
         case_detail.status=status
         case_detail.userid=reassign
         if(description!=""):
             case_detail.description=description
         case_detail.priority=priorityTbl
-        case_detail.save()
         modified=datetime.now()
         case_detail.modified=modified
         case_detail.save()
+        desctime=modified.strftime("%d/%m/%Y %H:%M:%S")
+        summaryname=request.session.get('Name')
+        summarydesc=summaryname+" on "+desctime+": "+description
+        summarydetail=TblCasesummary(casedetailid=case.caseid,description=summarydesc,regdate=modified,modified=modified)
+        summarydetail.save()
         print("Case====",case_detail)
         return JsonResponse({"message":"success"})
     else:
@@ -268,6 +295,7 @@ def verification_cases(request):
         manager=request.GET.get('manager')
         crm=request.GET.get('crm')
         print("Cases========",caseid,manager,crm)
+        
         modified=datetime.now()
         case=TblCases.objects.get(caseid=caseid)
         if crm:
@@ -281,6 +309,11 @@ def verification_cases(request):
             print("Usr",type(admin))
             registerdetail=TblCasedetails(caseid=case.caseid,topic=case.topic,description=case.description,regdate=case.regdate,modified=modified,iscompleted=0,completiondate=None,expcompletion=None,status="Verification Pending",userid=admin,priority=case.priority,casetype=case.casetype)
             registerdetail.save()
+        desctime=modified.strftime("%d/%m/%Y %H:%M:%S")
+        summaryname=request.session.get('Name')
+        summarydesc=summaryname+" on "+desctime+": send verification request"
+        summarydetail=TblCasesummary(casedetailid=caseid,description=summarydesc,regdate=modified,modified=modified)
+        summarydetail.save()
         return JsonResponse({"message":"success"})
     else:
         return redirect('/login')
