@@ -219,7 +219,7 @@
                                                                                     <a class='dropdown-item' onclick="loadMoreDeatails({{case.caseid}})">View More</a>
                                                                                     <a class='dropdown-item' onclick="approveTask({{case.caseid}})">Approve</a>
                                                                                     <a class='dropdown-item' onclick="rejectTask({{case.caseid}})">Reject</a>
-                                                                                    <a class='dropdown-item' onclick="editStatus({{case.caseid}})">Verify</a>
+                                                                                    <!-- <a class='dropdown-item' onclick="editStatus({{case.caseid}})">Verify</a> -->
                                                                                     <a class='dropdown-item' onclick="reassign({{case.caseid}})">Reassign</a>
                                                                                     {%else%} 
                                                                                     <a class='dropdown-item' onclick="loadMoreDeatails({{case.caseid}})">View More</a>
@@ -329,9 +329,7 @@
                                                                             <option value="Followup">Followup</option>
                                                                             <option value="ReOpen">ReOpen</option>
                                                                             <option value="Pending">Pending</option>
-                                                                            {%if request.session.MemberType != "SUPER USER" %}
                                                                             <option value="Verification Pending">Submit For Verification</option>
-                                                                            {%endif%}
                                                                             <option value="Management Approval Pending">Management Approval Pending</option>
                                                                         </select>
                                                                         
