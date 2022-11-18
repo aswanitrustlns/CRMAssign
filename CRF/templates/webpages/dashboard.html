@@ -207,17 +207,17 @@
     
     
                                                 </div>
-                                                <a href="{% url 'CRFAPP:viewTask'%}">
+                                                <a href="{% url 'CRFAPP:viewTask'%}?&status=Reassigned">
                                                 <div class="flex-grow-1 ms-2">
     
     
     
                                                     <div class="text-nowrap">
                                                         <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Total Tasks</span>
+                                                        <span class="ms-1 text-muted fs-13 gilroysemibold-type">Reassigned Tasks</span>
                                                     </div>
                                                     <h4 class="mb-1">
-                                                        <span class="counter-value gilroysemibold-type" data-target={{total}}>{{total}}</span>
+                                                        <span class="counter-value gilroysemibold-type" data-target={{reassigned}}>{{reassigned}}</span>
                                                     </h4>
                                                 </div>
                                             </a>
@@ -231,8 +231,7 @@
     
     
                                         </div>
-                                 
-    
+                                       
     
                                     </div>
                                 </div>

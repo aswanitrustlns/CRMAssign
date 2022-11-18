@@ -17,6 +17,7 @@ urlpatterns=[
      path('ManagerActions',manager_casedetail_funs,name="ManagerActions"),
      path('ViewDoc',view_document,name="ViewDoc"),
      path('DocUpload',case_file_upload,name="DocUpload"),
+     path('AllView',viewallTasks,name="AllView"),
      path('CaseDetailUpdate',detail_status_update,name="CaseDetailUpdate"),
      path('Verification',verification_cases,name="Verification")
 ]
