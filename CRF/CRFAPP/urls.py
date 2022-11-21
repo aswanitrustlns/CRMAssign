@@ -9,6 +9,8 @@ urlpatterns=[
      path('LogOut',logout,name="Logout"),
      path('dashboard/',dashboard,name="Dashboard"),
      path('viewTask',view_tasks,name='viewTask'),
+     path('AssignTask',assign_task,name="AssignTask"),
+     
      path('CRFDetails',detailed_page,name="CRFDetails"),
      path('display',viewall_users,name="display"),
      path('StatusUpdate',status_update,name="StatusUpdate"),

@@ -55,7 +55,9 @@
                         <span data-key="t-backOffice">Tasks</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        
+                        {%if request.session.MemberType == "SUPER USER" or request.session.MemberType == "ADMIN" %}
+                        <li> <a  href="{% url 'CRFAPP:AssignTask' %}" >Assign Task</a></li>
+                        {%endif%}
                         <li> <a  href="{% url 'CRFAPP:AllView' %}" >View All</a></li>
                         
                         

@@ -94,6 +94,11 @@ def dashboard(request):
             return render(request,'webpages/dashboard.html',{'pending':pending,'followup':followup,'reopen':reopen,'total':total,'approval':approvalpending,'verification':verification,'manager_approved':manager_approved,'resolved':resolved,'reassigned':reassigned})
     else:
         return render(request,'webpages/login.html')
+def assign_task(request):
+    if 'UserID' in request.session:
+        return render(request,'webpages/case-register.html')
+    else:
+        return render(request,'webpages/login.html')
 def view_tasks(request):
     if 'UserID' in request.session:
         fromdate=request.GET.get('from')

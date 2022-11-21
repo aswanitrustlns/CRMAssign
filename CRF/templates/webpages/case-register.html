@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" lang="ar">
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      
+      <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <div class="main-content">
+
+            <div class="page-content" id="sales">
+                <div class="container-fluid"> <!--container-fluid px-md-5 me-md5-->
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0 fs-23 almarenamonolight-type">New case report form</h4><!--font-size-18-->
+
+                                <!--<div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                        <li class="breadcrumb-item active">New case report form</li>
+                                    </ol>
+                                </div>-->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+                    <!--Analytics overview-->
+                    <div class="row">
+
+                        <div class="col-xl-12 ">
+                            <div class="card  card-h-100">
+                            
+                                <div class="card-body">
+                                    
+                            
+                                
+                                    <form class="needs-validation" novalidate id="case-register" enctype="multipart/form-data">
+                                        <div class="row">
+
+                                            <div class="col-md-3 col-xxl-2">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="Subject">Assign To<span class="color-orange">*</span></label>
+                                                    <select  class="form-select" id="AssignTo"  value="" required name="assignedto">
+                                                        {% for assign in assigns%}
+                                                        <option value={{assign.userid}}>{{assign.name}}</option>
+                                                        {%endfor%}
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid entry.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         
+                                            <div class="col-md-3 col-xxl-2">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="Type">Type<span class="color-orange">*</span></label>
+                                                    <select  class="form-select" id="Type"  value="" required name="casetype">
+                                                        {% for type in types%}
+                                                        <option value={{type.id}}>{{type.casetypes}}</option>
+                                                        
+                                                        {%endfor%}
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid entry.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-2 col-xxl-1">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="Priority">Priority<span class="color-orange">*</span></label>
+                                                    <select  class="form-select" id="Priority"  value="" required name="priority">
+                                                        {% for prior in priors%}
+                                                        <option value={{prior.id}}>{{prior.priority}}</option>
+                                                        {%endfor%}
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid entry.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="BriefDescription">Topic<span class="color-orange">*</span></label>
+                                                    <input type="text"  class="form-control" id="topic"  value="" name="topic">
+                                                       
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid entry.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="BriefDescription">Brief Description<span class="color-orange">*</span></label>
+                                                    <textarea  class="form-control" id="BriefDescription"  value="" required rows="5" name="textdescription"></textarea>
+                                                       
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid entry.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-xxl-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label " for="Choosefile">Choosefile<span class="color-orange">*</span></label>
+                                                    
+                                                    <div class="form-control  d-flex justify-content-between position-relative align-items-center"  id="choosefilefield"  style="height: 41px;">
+                                                        <input  type="file" class="form-control position-absolute" id="choosefile" placeholder="" required  style="top:0;left:0; right:0; opacity: 0; z-index: 1258;" name="docfile">
+                                                        <span id="choosetext" class="fs-10"></span>
+                                                        <svg  width="14" height="19" viewBox="0 0 14 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M6.97494 9V11.9167C6.97494 13.525 8.28327 14.8333 9.8916 14.8333C11.4999 14.8333 12.8083 13.525 12.8083 11.9167V7.33333C12.8083 4.10833 10.1999 1.5 6.97494 1.5C3.74994 1.5 1.1416 4.10833 1.1416 7.33333V12.3333C1.1416 15.0917 3.38327 17.3333 6.1416 17.3333" stroke="#73759D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="assign" value="" id="approvedby">
+
+                                            <div class="col-md-12">
+                                                <button class="btn btn-info btn-lg mt-3" type="button" onclick="caseSubmit('user')">Submit To User</button>
+                                                <button class="btn bg-soft-secondarycolor btn-lg mt-3 ms-3  text-white" type="button" onclick="caseSubmit('manager')">Submit To Manager</button>
+                                                <button class="btn btn-outline-light btn-lg mt-3 ms-3 color-color1" type="button" onclick="resetfun()">Reset</button>
+                                               
+                                    </div>
+                                       
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- end card -->
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+                </div>
+                <!-- End Page-content -->
+
+                
+        </div>
+    </div>
+    {% include "common/right-sidebar.html" %}
+    
+    <!-- Right bar overlay-->
+<div class="rightbar-overlay"></div> 
+<div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+    <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class=" fs-16" id="userMsg">
+                    
+                </h5>
+                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                    </a>
+                </div>
+                                    
+                    <!-- <div class="modal-body" >
+        
+        
+                            <div data-simplebar style="max-height: 230px;">
+            
+                              
+                                
+                            </div>
+                        </div> -->
+           
+        </div>
+     </div>
+    </div>
+        <!-- form validation -->
+<script>
+    function caseSubmit(userType){
+        var topic=$("#topic").val()
+        var description=$("#BriefDescription").val()
+        var validflag=0
+        if(userType=="manager"){
+            $("#approvedby").val("manager")
+        }
+        else{
+            $("#approvedby").val("user")
+        }
+        if(topic==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the topic")
+            $("#alertpopup").modal('show')
+            validflag=1
+
+        }
+        if(description==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the description")
+            $("#alertpopup").modal('show')
+            validflag=1
+
+        }
+        if(validflag==0){
+            var form = $('#case-register')[0]
+        var formData = new FormData(form)
+        let csrftoken = '{{ csrf_token }}'
+        $.ajax({
+                        
+                        type : "POST", 
+                        headers:{'X-CSRFToken':csrftoken},
+                        
+                        async: false,
+                        cache: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        data:formData,
+                        success: function(data){
+                           
+                            $("#userMsg").empty()
+                            $("#userMsg").append("Task Assigned Successfully")
+                            $("#alertpopup").modal('show')
+                            $("#choosetext").val("")
+                            resetfun()
+                        }
+            })
+        
+
+        }
+        
+
+    }
+    function resetfun(){
+        $('#case-register')[0].reset()
+    }
+</script>
+<script src="{% static 'js/newcase-report.init.js' %}"></script>    
+<script src="{% static 'js/app.js' %}"></script>
+    
+</body>
+
+</html>
