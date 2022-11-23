@@ -155,7 +155,13 @@
                                                                             <td>{{detail.topic}}</td>   
                                                                             <td>{{detail.description}}</td>
                                                                             <td>{{detail.regdate|date:"Y-m-d"}}</td>
-                                                                            <td>{{detail.userid}}</td>
+                                                                            <td>
+                                                                                {% if detail.userid == "Farah Hawilo"  %}
+                                                                                ADMIN
+                                                                                {%else%}
+                                                                                {{detail.userid}}
+                                                                                {%endif%}
+                                                                            </td>
                                                                             <td>{{detail.status}}</td>
                                                                           
                                                                       

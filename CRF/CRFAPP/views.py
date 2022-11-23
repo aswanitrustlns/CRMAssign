@@ -97,7 +97,7 @@ def dashboard(request):
 def assign_task(request):
     if 'UserID' in request.session:
         userid=request.session.get('UserID')
-        assigns=TblUser.objects.exclude(userid=userid).filter(membertype='SUPER USER')
+        assigns=TblUser.objects.exclude(userid=userid).filter(membertype__in=["SUPER USER","ASSIGNEE","USER"])
         casetype=TblCasetypes.objects.all()
         priority=TblPriority.objects.all()
         return render(request,'webpages/case-register.html',{'types':casetype,'priors':priority,'assigns':assigns})
@@ -125,6 +125,7 @@ def view_tasks(request):
                     cases=TblCases.objects.filter(caseid__in=alltasks.values_list('caseid',flat=True))
                 else:
                     if(membertype=="SUPER USER"):
+                        print("Super user=====",status)
                         cases=TblCases.objects.filter(status=status,assignedto=userid)
                     if(membertype=="ADMIN"):
                         if status=="Verification Pending":
@@ -143,11 +144,16 @@ def view_tasks(request):
                     cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate)
             else:
                     alltasks=TblCasedetails.objects.filter(userid=userid)
-                    cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate,caseid__in=alltasks.values_list('caseid',flat=True))
+                    if(membertype=="SUPER USER"):
+                        cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate,caseid__in=alltasks.values_list('caseid',flat=True)) | TblCases.objects.filter(userid=userid)
+                    else:
+                        cases=TblCases.objects.filter(modified__gte=fromdate,modified__lt=todate,caseid__in=alltasks.values_list('caseid',flat=True))
             
         if(fromdate==None and todate==None and status==None):
             if(membertype=="ADMIN"):
                 cases=TblCases.objects.all()
+            if(membertype=="SUPER USER"):
+                cases=TblCases.objects.filter(assignedto=userid,userid=userid)
             else:
                 cases=TblCases.objects.filter(assignedto=userid) 
         print("Type od cases=====",type(cases))
@@ -166,9 +172,13 @@ def viewallTasks(request):
         alltasks=TblCasedetails.objects.filter(userid=userid)
         if(membertype=="ADMIN"):
                 cases=TblCases.objects.all()
+        
         else:
                 alltasks=TblCasedetails.objects.filter(userid=userid)
-                cases=TblCases.objects.filter(caseid__in=alltasks.values_list('caseid',flat=True))
+                if(membertype=="SUPER USER"):
+                    cases=TblCases.objects.filter(caseid__in=alltasks.values_list('caseid',flat=True)) | TblCases.objects.filter(userid=userid)
+                else:
+                    cases=TblCases.objects.filter(caseid__in=alltasks.values_list('caseid',flat=True))
         return render(request,'webpages/tasklist.html',{'cases':cases,'priority':priority,'employees':employees,'assignto':assignto})
 
 
@@ -178,6 +188,7 @@ def detailed_page(request):
         print("Case details===="+case) 
         assignto=TblUser.objects.filter(membertype="SUPER USER")
         casedetails=TblCasedetails.objects.filter(caseid=case)
+        
         print(" details=====",casedetails)
         docdetails=TblDocuments.objects.filter(caseid=case)
         priority=TblPriority.objects.all()
