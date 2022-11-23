@@ -448,12 +448,23 @@
                         processData: false,
                         data:formData,
                         success: function(data){
-                           
+                           var message=data.message
+                           if(message=="success"){
                             $("#userMsg").empty()
                             $("#userMsg").append("Task Assigned Successfully")
                             $("#alertpopup").modal('show')
                             $("#choosetext").val("")
                             resetfun()
+
+                           }else{
+                            $("#userMsg").empty()
+                            $("#userMsg").append("Please try again!!!")
+                            $("#alertpopup").modal('show')
+                            $("#choosetext").val("")
+                            resetfun()
+
+                           }
+                            
                         }
             })
         }
