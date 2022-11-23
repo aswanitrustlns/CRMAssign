@@ -1,12 +1,12 @@
 import os
+import random
 from datetime import date, datetime, timedelta
-
 from django.contrib.sessions.models import Session
 from django.http import FileResponse, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 
 from .models import (TblCasedetails, TblCases, TblCasesummary, TblCompany,
-                     TblDocuments, TblPriority, TblUser)
+                     TblDocuments, TblPriority, TblUser,TblCasetypes)
 
 
 # Create your views here.
@@ -96,7 +96,11 @@ def dashboard(request):
         return render(request,'webpages/login.html')
 def assign_task(request):
     if 'UserID' in request.session:
-        return render(request,'webpages/case-register.html')
+        userid=request.session.get('UserID')
+        assigns=TblUser.objects.exclude(userid=userid).filter(membertype='SUPER USER')
+        casetype=TblCasetypes.objects.all()
+        priority=TblPriority.objects.all()
+        return render(request,'webpages/case-register.html',{'types':casetype,'priors':priority,'assigns':assigns})
     else:
         return render(request,'webpages/login.html')
 def view_tasks(request):
@@ -526,13 +530,114 @@ def case_file_upload(request):
         return redirect('/login')
 
 def viewall_users(request):
-    users=TblUser.objects.all()
-    company=TblCompany.objects.all()
-    # priority=TblPriority.objects.get(id=5)
-    # priority.delete()
-    print("Priority=======")
-    # priority.priority="risk"
-    # priority.save()
+    if 'UserID' in request.session:
+        users=TblUser.objects.all()
+        company=TblCompany.objects.all()
+        # priority=TblPriority.objects.get(id=5)
+        # priority.delete()
+        print("Priority=======")
+        # priority.priority="risk"
+        # priority.save()
+        return render(request,'display.html',{'users':users,'companies':company})
+    else:
+        return redirect('/login')
 
-    return render(request,'display.html',{'users':users,'companies':company})
+#Save case
+def save_case(request):
+    if 'UserID' in request.session:
+        print("Task assigned=====")
+        UserId=request.session.get('UserID')
+        assignedto=request.POST.get('assignedto')
+        casetype=TblCasetypes()
+        print("case type=====")
+        casetype_id=request.POST.get('casetype')
+        casetype.id=casetype_id
+        priority_id=request.POST.get('priority')
+        priority=TblPriority()
+        priority.id=priority_id
+        topic=request.POST.get('topic')
+        description=request.POST.get('textdescription')
+        assign=request.POST.get('assign')
+        docfile=request.FILES.get("docfile",None)
+        status="Pending"
+        if(assign=="manager"):
+            assignedto=11
+            status="Management Approval Pending"
+        created=TblUser()
+        created.userid=UserId
+            
+        assigned=TblUser()
+        assigned.userid=assignedto
+        company=TblCompany()
+        company.id=5
+        comments=""
+        nums=random.randrange(1, 10**3)
+        casecode="TRSVG"+str(UserId)+"_"+str(nums)
+        regdate = datetime.now()
+        registercase=TblCases(casecode=casecode,topic=topic,description=description,priority=priority,userid=created,regdate=regdate,modified=regdate,assigneddpt=1,casetype=casetype,assignedto=assigned,companyid=company,status=status,comments=comments)
+        registercase.save()
+        registerid=TblCases.objects.latest('caseid')
+        caseid=registerid.caseid
+        completed=0
+        registerdetail=TblCasedetails(caseid=caseid,topic=topic,description=description,regdate=regdate,modified=regdate,iscompleted=completed,completiondate=None,expcompletion=None,status=status,userid=assigned,priority=priority,casetype=casetype)
+        registerdetail.save()
+        details=TblCasedetails.objects.latest('casedetailid')
+        detailid=details.casedetailid
+        caseid=41
+        detailid=26
+        if docfile:
+            imagedata=None
+            extension1 = os.path.splitext(str(docfile))[1]
+            imagename=os.path.splitext(str(docfile))[0]
+            fullname=imagename+extension1
+            file_path="static\\uploads\\"
+                # file_path=os.path.join(UPLOAD_ROOT,accno)
+            print("File existance======",file_path,os.path.isfile(file_path))
+            if os.path.isfile(file_path):
+                os.mkdir(file_path)
+            fullpath=str(caseid)+extension1
+            print("Full path====",fullpath)
+            fullfilepath=os.path.join(file_path,fullpath)
+            print("File",fullfilepath)
+            with open(fullfilepath, 'wb+') as destination:
+                for chunk in docfile.chunks():
+                    imagedata=chunk
+            if(extension1==".doc"):
+                contenttype = "application/vnd.ms-word"
+            if(extension1== ".docx"):
+                contenttype = "application/vnd.ms-word"
+            if(extension1==".xls"):
+                contenttype = "application/vnd.ms-excel"
+            if(extension1==".xlsx"):
+                contenttype = "application/vnd.ms-excel"
+            if(extension1==".jpg"):
+                contenttype = "image/jpg"
+            if(extension1==".JPG"):
+                contenttype = "image/jpg"
+            if(extension1==".JPEG"):
+                contenttype = "image/jpg"
+            if(extension1==".jpeg"):
+                contenttype = "image/jpg"
+            if(extension1==".png"):
+                contenttype = "image/png"
+            if(extension1==".PNG"):
+                contenttype = "image/png"
+            if(extension1==".gif"):
+                contenttype = "image/gif"
+            if(extension1==".GIF"):
+                contenttype = "image/gif"
+            if(extension1==".bmp"):
+                contenttype = "image/bmp"
+            if(extension1==".BMP"):
+                contenttype = "image/bmp"
+            if(extension1== ".pdf"):
+                contenttype = "application/pdf"
+            if(extension1==".PDF"):
+                contenttype = "application/pdf"
+            docs=TblDocuments(caseid=caseid,casedetailid=detailid,casesummaryid=0,documentdata=imagedata,documentname=imagename,doctype=contenttype,uploadeddate=regdate)
+            docs.save()
+        print("Case registered======")
+        return JsonResponse({"message":"success"})
+    else:
+        return redirect('login/')
 

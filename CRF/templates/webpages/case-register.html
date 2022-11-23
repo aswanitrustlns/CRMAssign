@@ -72,10 +72,11 @@
                                     
                             
                                 
-                                    <form class="needs-validation" novalidate id="case-register" enctype="multipart/form-data">
+                                    <form class="needs-validation" novalidate id="case-register" enctype="multipart/form-data" method="POST">
+                                        {% csrf_token %}
                                         <div class="row">
-
-                                            <div class="col-md-3 col-xxl-2">
+                                            <input type="hidden" name="assignedto" id="form-assignto">
+                                            <!-- <div class="col-md-3 col-xxl-2">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="Subject">Assign To<span class="color-orange">*</span></label>
                                                     <select  class="form-select" id="AssignTo"  value="" required name="assignedto">
@@ -83,11 +84,9 @@
                                                         <option value={{assign.userid}}>{{assign.name}}</option>
                                                         {%endfor%}
                                                     </select>
-                                                    <div class="invalid-feedback">
-                                                        Please provide a valid entry.
-                                                    </div>
+                                                    
                                                 </div>
-                                            </div>
+                                            </div> -->
                                          
                                             <div class="col-md-3 col-xxl-2">
                                                 <div class="mb-3">
@@ -103,7 +102,18 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+                                            <!-- <div class="col-md-2 col-xxl-1">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="Assignto">Assign to<span class="color-orange">*</span></label>
+                                                    <select  class="form-select" id="Assignto"  value="" required>
+                                                        <option value="">Mr</option>
+                                                        <option value="">Mrs</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid entry.
+                                                    </div>
+                                                </div>
+                                            </div> -->
                                             <div class="col-md-2 col-xxl-1">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="Priority">Priority<span class="color-orange">*</span></label>
@@ -142,7 +152,7 @@
                                                     <label class="form-label " for="Choosefile">Choosefile<span class="color-orange">*</span></label>
                                                     
                                                     <div class="form-control  d-flex justify-content-between position-relative align-items-center"  id="choosefilefield"  style="height: 41px;">
-                                                        <input  type="file" class="form-control position-absolute" id="choosefile" placeholder="" required  style="top:0;left:0; right:0; opacity: 0; z-index: 1258;" name="docfile">
+                                                        <input  type="file" class="form-control position-absolute" id="choosefile" placeholder="" required  style="top:0;left:0; right:0; opacity: 0; " name="docfile">
                                                         <span id="choosetext" class="fs-10"></span>
                                                         <svg  width="14" height="19" viewBox="0 0 14 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M6.97494 9V11.9167C6.97494 13.525 8.28327 14.8333 9.8916 14.8333C11.4999 14.8333 12.8083 13.525 12.8083 11.9167V7.33333C12.8083 4.10833 10.1999 1.5 6.97494 1.5C3.74994 1.5 1.1416 4.10833 1.1416 7.33333V12.3333C1.1416 15.0917 3.38327 17.3333 6.1416 17.3333" stroke="#73759D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -157,7 +167,85 @@
                                                 <button class="btn btn-info btn-lg mt-3" type="button" onclick="caseSubmit('user')">Submit To User</button>
                                                 <button class="btn bg-soft-secondarycolor btn-lg mt-3 ms-3  text-white" type="button" onclick="caseSubmit('manager')">Submit To Manager</button>
                                                 <button class="btn btn-outline-light btn-lg mt-3 ms-3 color-color1" type="button" onclick="resetfun()">Reset</button>
-                                               
+                                                <!-- <button class="btn btn-outline-light btn-lg mt-3 ms-3 color-color1" data-bs-toggle="modal" data-bs-target=".bs-example-modal-document" >Upload docs <svg width="14" height="19" viewBox="0 0 14 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M6.97591 9V11.9167C6.97591 13.525 8.28424 14.8333 9.89258 14.8333C11.5009 14.8333 12.8092 13.525 12.8092 11.9167V7.33333C12.8092 4.10833 10.2009 1.5 6.97591 1.5C3.75091 1.5 1.14258 4.10833 1.14258 7.33333V12.3333C1.14258 15.0917 3.38425 17.3333 6.14258 17.3333" stroke="#73759D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                 </button> -->
+                                                <!---Modal Upload document-->
+                                                <!-- <div class="modal fade  bs-example-modal-document" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content ">
+
+
+
+                                                            <div class="modal-body ">
+    
+    
+                                                                <div class="  px-3 border rounded-3">
+    
+                                                                    <div class="modal-header border-0 px-0">
+                                                                        <h5 class="modal-title fs-21 ">Upload document </h5>
+                                                                        <input  type="file" class="form-control position-absolute" id="choosefile" placeholder="" required  style="top:0;left:0; right:0; opacity: 0; z-index: 1258;" >
+                                                                        <span id="choosetext" class="fs-10"></span>
+                                                                        <svg  width="14" height="19" viewBox="0 0 14 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M6.97494 9V11.9167C6.97494 13.525 8.28327 14.8333 9.8916 14.8333C11.4999 14.8333 12.8083 13.525 12.8083 11.9167V7.33333C12.8083 4.10833 10.1999 1.5 6.97494 1.5C3.74994 1.5 1.1416 4.10833 1.1416 7.33333V12.3333C1.1416 15.0917 3.38327 17.3333 6.1416 17.3333" stroke="#73759D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                        </svg>
+        
+                                                                        <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                                <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                                <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                                </svg>
+                
+                                                                            </a>
+                                                                    </div>
+                                                                    <form class="needs-validation pt-3" novalidate="" id="action-call">
+                                                                        <div class="row">
+            
+            
+                                                                            <div class="col-md-12">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label " for="Choosefile">Choosefile<span class="color-orange">*</span></label>
+                                                                                    
+                                                                                    <div class="form-control  d-flex justify-content-between position-relative align-items-center"  id="choosefilefield" style="height: 41px;">
+                                                                                        <input  type="file" class="form-control position-absolute" id="choosefile" placeholder="" required  style="top:0;left:0; right:0; opacity: 0; z-index: 1258;" >
+                                                                                        <span id="choosetext" class="fs-10"></span>
+                                                                                        <svg  width="14" height="19" viewBox="0 0 14 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                            <path d="M6.97494 9V11.9167C6.97494 13.525 8.28327 14.8333 9.8916 14.8333C11.4999 14.8333 12.8083 13.525 12.8083 11.9167V7.33333C12.8083 4.10833 10.1999 1.5 6.97494 1.5C3.74994 1.5 1.1416 4.10833 1.1416 7.33333V12.3333C1.1416 15.0917 3.38327 17.3333 6.1416 17.3333" stroke="#73759D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                        </svg>
+                                                                                            
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        
+                                                                                
+                                                                                <div class="col-md-12">
+                                                                                    <button class="btn btn-primary btn-lg my-3 " type="button" name="upload">Save</button>
+                
+                                                                                </div>
+                
+                
+                
+                
+            
+            
+                                                                        </div>
+        
+        
+                                                                    </form>
+    
+                                                                </div>
+                                                            </div>
+    
+    
+    
+                                                        </div>
+
+
+                                                    </div>
+                                                </div> -->
                                     </div>
                                        
                                     </form>
@@ -210,6 +298,60 @@
         </div>
      </div>
     </div>
+    <div class="modal fade  bs-example-modal-show" tabindex="-1" role="dialog" aria-hidden="true" id="assign-model">
+                                                            
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <div class="modal-body ">
+
+                    <div class="  px-0  ">
+
+                        <div class="modal-header border-0 px-0">
+                            <h5 class="modal-title fs-21 ">Assign </h5>
+
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+
+                                </a>
+                        </div>
+                        <form class="needs-validation pt-3" novalidate="" id="action-call">
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <!-- <div class="mb-3"> -->
+                                        <select class="form-select" id="assign-user">
+                                            {% for assign in assigns%}
+                                                        <option value={{assign.userid}}>{{assign.name}}</option>
+                                            {%endfor%}
+                                        </select>
+
+                                    <!-- </div> -->
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary btn-lg my-3 " type="button" onclick="submitCase()">Assign</button>
+                                </div>
+
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div><!-- /.modal-content -->
+
+
+
+            </div>
+
+
+        </div><!-- /.modal-dialog -->
+    </div>
+
         <!-- form validation -->
 <script>
     function caseSubmit(userType){
@@ -220,7 +362,10 @@
             $("#approvedby").val("manager")
         }
         else{
+            validflag=1
             $("#approvedby").val("user")
+            $("#assign-model").modal('show')
+            
         }
         if(topic==""){
             $("#userMsg").empty()
@@ -239,12 +384,63 @@
         if(validflag==0){
             var form = $('#case-register')[0]
         var formData = new FormData(form)
+        console.log("Form data==="+formData)
         let csrftoken = '{{ csrf_token }}'
         $.ajax({
                         
                         type : "POST", 
                         headers:{'X-CSRFToken':csrftoken},
+                        url: "{% url 'CRFAPP:Register'%}",
+                        async: false,
+                        cache: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        data:formData,
+                        success: function(datas){
+                           
+                            $("#userMsg").empty()
+                            $("#userMsg").append("Task Assigned Successfully")
+                            $("#alertpopup").modal('show')
+                            $("#choosetext").val("")
+                            resetfun()
+                        }
+            })
+        
+
+        }
+    }
+    function submitCase(){
+        $("#assign-model").modal('hide')
+        var topic=$("#topic").val()
+        var description=$("#BriefDescription").val()
+        var validflag=0
+        var assignto=$("#assign-user").val()
+        $("#form-assignto").val(assignto)
+        if(topic==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the topic")
+            $("#alertpopup").modal('show')
+            validflag=1
+
+        }
+        if(description==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the description")
+            $("#alertpopup").modal('show')
+            validflag=1
+
+        }
+        if(validflag==0){
+        var form = $('#case-register')[0]
+        var formData = new FormData(form)
+        let csrftoken = '{{ csrf_token }}'
+        console.log("Manager case submit=====")
+        $.ajax({
                         
+                        type : "POST", 
+                        headers:{'X-CSRFToken':csrftoken},
+                        url: "{% url 'CRFAPP:Register' %}",
                         async: false,
                         cache: false,
                         contentType: false,
@@ -260,10 +456,7 @@
                             resetfun()
                         }
             })
-        
-
         }
-        
 
     }
     function resetfun(){
