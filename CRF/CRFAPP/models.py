@@ -213,8 +213,8 @@ class TblUser(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_User'
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 class TblCases(models.Model):
     caseid = models.AutoField(db_column='CaseId', primary_key=True)  # Field name made lowercase.

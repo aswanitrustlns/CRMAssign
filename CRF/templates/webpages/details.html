@@ -156,10 +156,10 @@
                                                                             <td>{{detail.description}}</td>
                                                                             <td>{{detail.regdate|date:"Y-m-d"}}</td>
                                                                             <td>
-                                                                                {% if detail.userid == "Farah Hawilo"  %}
+                                                                                {% if detail.userid.name == "Farah Hawilo"  %}
                                                                                 ADMIN
                                                                                 {%else%}
-                                                                                {{detail.userid}}
+                                                                                {{detail.userid.name}}
                                                                                 {%endif%}
                                                                             </td>
                                                                             <td>{{detail.status}}</td>
